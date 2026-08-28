@@ -1,0 +1,11 @@
+{
+  "settlement": {
+    "settlementInput": {
+      "settlementDateRange": "结算时间",
+      "warehouseId": "采购仓库"
+    }
+  },
+  "invoice": {
+    "invoiceDateRange": "发票时间"
+  }
+}

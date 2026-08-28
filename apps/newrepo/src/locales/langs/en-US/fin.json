@@ -1,0 +1,8 @@
+{
+  "settlement": {
+    "settlementInput": {
+      "settlementDateRange": "结算时间",
+      "warehouseId": "采购仓库"
+    }
+  }
+}

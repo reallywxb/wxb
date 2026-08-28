@@ -1,0 +1,29 @@
+# 排除依赖目录
+**/node_modules
+**/vendor
+**/target
+
+# 排除构建产物
+**/build
+**/*.exe
+**/*.dll
+
+# 排除版本控制文件
+.git
+.gitignore
+.svn
+
+# 排除 IDE 文件
+.idea
+.vscode
+*.swp
+
+# 排除日志和临时文件
+*.log
+*.tmp
+*.cache
+
+# 排除测试数据
+**/testdata
+**/*.csv
+**/*.sqlite

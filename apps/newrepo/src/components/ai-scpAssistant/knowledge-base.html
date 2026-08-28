@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta content="text/html;charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta http-equiv ="Pragma" content="no-cache"/>
+	<meta http-equiv="Cache-Control" content="no cache"/>
+	<meta http-equiv="Expires" content="0"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" type="text/css" href="../../plugins/layui/css/layui.css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="../../css/fs.css" media="all"/>
+	<script type="text/javascript" src="../../plugins/layui/layui.js"></script>
+	<script type="text/javascript" src="../../plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugins/frame/js/common.js"></script>
+	<script type="text/javascript" src="./knowledge-base.js"></script>
+	<style>
+		body { padding: 20px; background: #f5f5f5; }
+		.upload-area {
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			padding: 40px 20px;
+			text-align: center;
+			background: #fafafa;
+			cursor: pointer;
+			transition: all 0.3s;
+			margin-bottom: 15px;
+		}
+		.upload-area:hover, .upload-area.dragover {
+			border-color: #1E9FFF;
+			background: #f0f8ff;
+		}
+		.upload-area .layui-icon { font-size: 48px; color: #999; display: block; margin-bottom: 10px; }
+		.upload-area .upload-tip { color: #999; font-size: 13px; }
+		.file-info { margin-top: 10px; padding: 10px; background: #f8f8f8; border-radius: 4px; display: none; }
+		.file-info.show { display: block; }
+		.file-info .file-name { color: #333; font-weight: bold; }
+		.file-info .file-size { color: #999; margin-left: 10px; }
+		.progress-bar { width: 100%; height: 20px; background: #e0e0e0; border-radius: 10px; overflow: hidden; margin-top: 10px; display: none; }
+		.progress-fill {
+			height: 100%;
+			background: linear-gradient(90deg, #1e9fff, #009688);
+			transition: width 0.3s;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			font-size: 12px;
+			width: 0%;
+		}
+		.preview-section { margin-top: 20px; display: none; }
+		.preview-section.show { display: block; }
+		.preview-content {
+			max-height: 500px;
+			overflow-y: auto;
+			background: #fff;
+			padding: 15px;
+			border-radius: 4px;
+			border: 1px solid #e0e0e0;
+		}
+		.preview-content img { max-width: 100%; height: auto; border-radius: 4px; margin: 10px 0; }
+		.kb-list { margin-top: 20px; }
+		.kb-list table { width: 100%; border-collapse: collapse; background: #fff; }
+		.kb-list th, .kb-list td { padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; font-size: 13px; }
+		.kb-list th { background: #f2f2f2; font-weight: bold; }
+		.kb-list tr:hover { background: #f9f9f9; }
+		.form-section { margin-bottom: 30px; }
+		.form-section .layui-card-header { font-size: 16px; font-weight: bold; }
+		.pagination { margin-top: 15px; text-align: right; }
+		.pagination .layui-btn { margin-left: 5px; }
+		.page-info { display: inline-block; margin-right: 10px; line-height: 30px; }
+	</style>
+</head>
+<body>
+	<div class="layui-container">
+		<!-- 上传表单 -->
+		<div class="layui-card form-section">
+			<div class="layui-card-header">上传知识库文档</div>
+			<div class="layui-card-body">
+				<form class="layui-form" lay-filter="uploadForm" id="upload_form">
+					<div class="layui-form-item">
+						<label class="layui-form-label">文档标题</label>
+						<div class="layui-input-block">
+							<input type="text" name="doc_title" required lay-verify="required" placeholder="请输入文档标题" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">文档类型</label>
+						<div class="layui-input-block">
+							<select name="doc_type" lay-verify="required">
+								<option value="操作手册">操作手册</option>
+								<option value="普通问答">普通问答</option>
+								<option value="流程说明">流程说明</option>
+								<option value="计算规则">计算规则（周转率算法/统计口径/数据来源表）</option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">版本号</label>
+						<div class="layui-input-block">
+							<input type="text" name="version" placeholder="如 V1.0_202608" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">标签</label>
+						<div class="layui-input-block">
+							<input type="text" name="tags" placeholder='JSON数组格式，如 ["PC端","采购业务"]' class="layui-input">
+							<div class="layui-form-mid layui-word-aux">用于按角色/终端/业务模块筛选</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">文档文件</label>
+						<div class="layui-input-block">
+							<div class="upload-area" id="uploadArea">
+								<i class="layui-icon layui-icon-upload"></i>
+								<p class="upload-tip">点击或拖拽 .docx / .pdf 文件到此处上传（最大200MB）</p>
+							</div>
+							<input type="file" id="fileInput" name="file" accept=".docx,.pdf" style="display:none;">
+							<div class="file-info" id="fileInfo">
+								<span class="file-name" id="fileName"></span>
+								<span class="file-size" id="fileSize"></span>
+							</div>
+							<div class="progress-bar" id="progressBar">
+								<div class="progress-fill" id="progressFill">0%</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button type="button" class="layui-btn" lay-submit lay-filter="uploadForm" id="submitBtn">
+								<i class="layui-icon layui-icon-upload"></i> 上传并解析
+							</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<!-- 预览区域 -->
+		<div class="layui-card preview-section" id="previewSection">
+			<div class="layui-card-header">解析结果预览</div>
+			<div class="layui-card-body">
+				<div class="preview-content" id="previewContent"></div>
+			</div>
+		</div>
+
+		<!-- 知识库列表 -->
+		<div class="layui-card kb-list">
+			<div class="layui-card-header">知识库文档列表</div>
+			<div class="layui-card-body">
+				<div id="kbTable"></div>
+				<div class="pagination" id="pagination"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

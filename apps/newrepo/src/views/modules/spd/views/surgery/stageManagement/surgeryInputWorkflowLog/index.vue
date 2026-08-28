@@ -1,0 +1,788 @@
+<script lang="ts" setup>
+import { onMounted, ref, toRaw } from 'vue';
+// import { useRoute } from 'vue-router';
+
+import { SearchActionIcon, viewActionIcon } from '@vben/chc-icons';
+import { Page } from '@vben/common-ui';
+import { isEmpty } from '@vben/utils';
+
+import { PageSplitLazy } from '@xgsk/vue3-page-split';
+import { Button, Input, InputNumber } from 'ant-design-vue';
+import dayjs from 'dayjs';
+
+import { useSpdGrid } from '#/components/spd';
+import { handlePriceToFixedTwo } from '#/utils/util';
+
+import ViewWorkflowModalComp from './viewWorkflowModal.vue';
+
+// const route = useRoute();
+// const isProductControlLevel = ''; // chcAppConfig.isProductControlLevel
+// const urlParams: { [key: string]: any } = route.meta?.urlParams || {};
+// const returnDoc = urlParams.returnDoc || '';
+// const rejectDoc = urlParams.rejectDoc || '';
+// const orderType = urlParams.orderType || '';
+const parentTableParams = ref<{ [key: string]: any }>({
+  orderId: undefined,
+  productName: undefined,
+});
+const handleFormSubmit = async () => {
+  const formValues = await chcGridApi.formApi.getValues();
+  chcGridApi.formApi.setLatestSubmissionValues(toRaw(formValues));
+  chcGridApi.query(formValues);
+};
+// 子表
+const [ChildGrid, childGridApi] = useSpdGrid(
+  {
+    formOptions: {
+      fieldMappingTime: [['dateOrdered', ['dateFrom', 'dateTo'], 'YYYY-MM-DD']],
+    },
+    gridOptions: {
+      proxyConfig: {
+        autoLoad: false,
+      },
+      pagerConfig: {
+        enabled: true,
+      },
+    },
+  },
+  {
+    gridColumns: [
+      {
+        title: '序号',
+        width: 50,
+        type: 'seq',
+        align: 'center',
+        // formatter(scope: any) {
+        //   return scope.rowIndex + 1;
+        // },
+      },
+      {
+        field: 'productCode',
+        title: '药品编码',
+        minWidth: '120',
+        sortable: true,
+      },
+      {
+        field: 'markCode',
+        title: '中标编码',
+        minWidth: '100',
+        sortable: true,
+      },
+      {
+        field: 'productName',
+        title: '药品名称',
+        minWidth: '250',
+        sortable: true,
+      },
+      {
+        field: 'productSpec',
+        title: '规格',
+        minWidth: '150',
+        sortable: true,
+      },
+      {
+        field: 'modelNo',
+        title: '型号',
+        minWidth: '150',
+        sortable: true,
+        visible: false,
+      },
+      {
+        field: 'manufacturer',
+        title: '厂家',
+        minWidth: '130',
+        sortable: true,
+      },
+      {
+        field: 'uomName',
+        title: '单位',
+        minWidth: '75',
+        sortable: true,
+      },
+      {
+        field: 'qtyOrdered',
+        title: '数量',
+        minWidth: '100',
+        align: 'right',
+        // hover: true,
+        sortable: true,
+      },
+      {
+        field: 'priceActual',
+        title: '采购价',
+        minWidth: '90',
+        align: 'right',
+        // format: '0.00##',
+        sortable: true,
+      },
+      {
+        field: 'lineAmt',
+        title: '金额',
+        minWidth: '100',
+        align: 'right',
+        // format: '0.00',
+        sortable: true,
+      },
+      {
+        field: 'vendorCode',
+        title: '供应商编码',
+        minWidth: '110',
+        sortable: true,
+      },
+      {
+        field: 'vendorName',
+        title: '供应商',
+        minWidth: '180',
+        sortable: true,
+      },
+      {
+        field: 'defaultVendorCode',
+        title: '默认供应商编码',
+        minWidth: '130',
+        sortable: true,
+      },
+      {
+        field: 'defaultVendorName',
+        title: '默认供应商',
+        minWidth: '150',
+        sortable: true,
+      },
+      {
+        field: 'lot',
+        title: '批号',
+        minWidth: '90',
+        sortable: true,
+      },
+      {
+        field: 'guaranteeDate',
+        title: '效期',
+        minWidth: '90',
+        sortable: true,
+      },
+      {
+        field: 'serNo',
+        title: 'UDI',
+        minWidth: '260',
+        sortable: true,
+      },
+      {
+        field: 'description',
+        title: '备注',
+        minWidth: '150',
+        sortable: true,
+      },
+    ],
+    showExportBtn: false,
+    id: 'child',
+    queryUrl: 'orderAction/queryLine.do',
+    beforeFetchFn: (params) => {
+      if (isEmpty(parentTableParams.value?.orderId)) {
+        return false;
+      }
+      return {
+        ...params,
+        ...parentTableParams.value,
+      };
+    },
+    afterFetchFn: (params) => {
+      return {
+        ...params,
+        records: params.rows,
+      };
+    },
+  },
+);
+// 父表
+const [ChcGrid, chcGridApi, { ViewWorkflowModal, viewWorkflowModalApi }] =
+  useSpdGrid(
+    {
+      formOptions: {
+        fieldMappingTime: [
+          ['dateOrdered', ['dateFrom', 'dateTo'], 'YYYY-MM-DD'],
+        ],
+        compact: true,
+        layout: 'horizontal',
+        submitButtonOptions: {
+          content: '查询',
+        },
+        commonConfig: {
+          labelClass: 'w-[70px]',
+        },
+        handleSubmit: handleFormSubmit,
+        handleReset: async () => {
+          await chcGridApi.formApi.resetForm();
+          const formValues = await chcGridApi.formApi.getValues();
+          chcGridApi.formApi.setLatestSubmissionValues(formValues);
+          chcGridApi.query(formValues);
+        },
+      },
+      gridOptions: {
+        stripe: false,
+        proxyConfig: {
+          autoLoad: true,
+        },
+        radioConfig: {
+          trigger: 'row',
+          highlight: true,
+        },
+        // sortConfig: {
+        //   defaultSort: {
+        //     field: 'priorityRuleName',
+        //     order: 'desc',
+        //   },
+        // },
+        pagerConfig: {
+          enabled: true,
+        },
+        rowStyle(scope: any) {
+          if (scope.row.processStatus === 'C') {
+            return {
+              color: 'red',
+            };
+          }
+          if (scope.row.processStatus === 'Y') {
+            return {
+              color: 'green',
+            };
+          }
+        },
+        cellStyle(scope: any) {
+          if (
+            scope.column.field === 'isWorkflowEnd' &&
+            scope.row.isWorkflowEnd &&
+            scope.row.isWorkflowEnd === 'N'
+          ) {
+            return {
+              color: '#F581B1',
+            };
+          }
+        },
+      },
+    },
+    {
+      id: 'parent',
+      queryUrl: `orderAction/query.do?isSurgery=Y&page=workflowApproveLog`,
+      gridColumns: [
+        { title: '单选', type: 'radio', visible: false },
+        {
+          title: '序号',
+          type: 'seq',
+          width: 50,
+          align: 'center',
+        },
+        // { title: '', type: 'checkbox', minWidth: 50, align: 'center' },
+        // {
+        //   type: 'color',
+        //   hidden: true,
+        //   render(item) {
+        //     if (item.processStatus == 'C') {
+        //       // 关闭
+        //       return 'red';
+        //     }
+        //     if (item.processStatus == 'Y') {
+        //       // 关闭
+        //       return 'green';
+        //     }
+        //   },
+        // },
+        {
+          field: 'orderNo',
+          title: '跟台单号',
+          minWidth: '110',
+          sortable: true,
+        },
+        {
+          field: 'dateOrdered',
+          title: '跟台时间',
+          minWidth: '160',
+          sortable: true,
+        },
+        {
+          field: 'applyWarehouseName',
+          title: '执行仓库',
+          minWidth: '100',
+          sortable: true,
+        },
+        {
+          field: 'treatmentApplyBpartnerName',
+          title: '执行科室',
+          minWidth: '100',
+          sortable: true,
+        },
+        {
+          field: 'treatmentBpatnerName',
+          title: '开单科室',
+          minWidth: '100',
+          sortable: true,
+        },
+        {
+          field: 'warehouseName',
+          title: '采购仓库',
+          minWidth: '150',
+          sortable: true,
+        },
+        {
+          field: 'bpartnerName',
+          title: '供应商',
+          minWidth: '120',
+          sortable: true,
+        },
+        {
+          field: 'totalAmt',
+          title: '金额',
+          minWidth: '90',
+          align: 'right',
+          formatter({ row }: any) {
+            return handlePriceToFixedTwo(row.totalAmt);
+          },
+          // format: '0.00',
+          sortable: true,
+        },
+        {
+          field: 'isWorkflowEnd',
+          title: '审批是否结束',
+          minWidth: '140',
+          formatter({ row }: any) {
+            return row.isWorkflowEnd === 'Y' ? '是' : '否';
+          },
+          // format(value) {
+          //   return value == 'Y' ? '是' : '否';
+          // },
+          // color(f, item) {
+          //   if (item.isWorkflowEnd && item.isWorkflowEnd == 'N') {
+          //     return '#F581B1';
+          //   }
+          // },
+        },
+        {
+          field: 'surgeryTime',
+          title: '手术时间',
+          minWidth: '100',
+          sortable: true,
+        },
+        {
+          field: 'doctorName',
+          title: '主刀医师',
+          minWidth: '100',
+          sortable: true,
+        },
+        {
+          field: 'patientName',
+          title: '患者姓名',
+          minWidth: '100',
+          sortable: true,
+        },
+        {
+          field: 'patientVisitCode',
+          title: '患者编号',
+          minWidth: '100',
+          sortable: true,
+        },
+        {
+          field: 'doctorOrderNo',
+          title: '医嘱号',
+          minWidth: '100',
+          sortable: true,
+          visible: false,
+          // hidden: true,
+        },
+        {
+          field: 'diagnosis',
+          title: '医嘱信息',
+          minWidth: '100',
+          sortable: true,
+        },
+        {
+          field: 'patientPhoneNo',
+          title: '联系方式',
+          minWidth: '120',
+          sortable: true,
+        },
+        {
+          field: 'patientAddress',
+          title: '联系地址',
+          minWidth: '150',
+          sortable: true,
+        },
+        {
+          field: 'bedNo',
+          title: '床位',
+          minWidth: '100',
+          sortable: true,
+        },
+        {
+          field: 'diagnosis1',
+          title: '诊断',
+          minWidth: '120',
+          sortable: true,
+          formatter({ row }: any) {
+            return row.diagnosis;
+          },
+        },
+        {
+          field: 'processStatusName',
+          title: '处理状态',
+          minWidth: '100',
+          sortable: true,
+        },
+        {
+          field: 'commitUserName',
+          title: '提交人',
+          minWidth: '110',
+          sortable: true,
+        },
+        {
+          field: 'commitTime',
+          title: '提交时间',
+          minWidth: '160',
+          sortable: true,
+        },
+        {
+          field: 'completeUserName',
+          title: '审批人',
+          minWidth: '110',
+          sortable: true,
+        },
+        {
+          field: 'completeTime',
+          title: '审批时间',
+          minWidth: '160',
+          sortable: true,
+        },
+        {
+          field: 'checkUser1',
+          title: '验收人',
+          minWidth: '110',
+          sortable: true,
+          visible: false,
+        },
+        {
+          field: 'checkUser2',
+          title: '第二验收人',
+          minWidth: '110',
+          sortable: true,
+          visible: false,
+        },
+        {
+          field: 'description',
+          title: '备注',
+          minWidth: '150',
+          sortable: true,
+        },
+        {
+          field: 'action',
+          fixed: 'right',
+          title: '操作',
+          minWidth: 130,
+          align: 'center',
+          slots: {
+            default: 'action',
+          },
+          // "toolbar":"#tablebar"
+        },
+      ],
+      formSchema: [
+        {
+          component: 'DateGroup',
+          fieldName: 'date',
+          label: '跟台时间',
+          defaultValue: [
+            dayjs(dayjs().format('YYYY-MM-DD'))
+              // .subtract(2, 'year')
+              .subtract(1, 'week')
+              // .subtract(1, 'day')
+              .format('YYYY-MM-DD'),
+          ],
+          formItemClass: 'col-span-1',
+        },
+        {
+          component: 'ChcSelect',
+          componentProps: () => {
+            return {
+              dictUrl:
+                '/baseHandleAction/departmentList.do?type=0&includeRegion=Y',
+              placeholder: '请选择院区',
+              paginate: false,
+              showChooseAll: '',
+              immediate: true,
+              labelField: 'name',
+              valueField: 'id',
+              afterFetch(res: any) {
+                return { ...res, rows: undefined, records: res.rows };
+              },
+            };
+          },
+          defaultValue: '',
+          fieldName: 'departmentId',
+          label: '院区',
+        },
+        {
+          component: 'ChcSelect',
+          componentProps: () => {
+            return {
+              // autoChooseFirstOption: true,
+              dictUrl: '/baseHandleAction/warehouse.do',
+              placeholder: '请选择采购仓库',
+              paginate: false,
+              showChooseAll: '',
+              immediate: true,
+              labelField: 'name',
+              valueField: 'id',
+              afterFetch(res: any) {
+                return { ...res, rows: undefined, records: res.rows };
+              },
+            };
+          },
+          dependencies: {
+            triggerFields: ['departmentId', 'regionId'],
+            trigger(values) {
+              if (
+                chcGridApi.formApi?.getFieldComponentRef &&
+                typeof chcGridApi.formApi?.getFieldComponentRef ===
+                  'function' &&
+                chcGridApi.formApi?.getFieldComponentRef('warehouseId') &&
+                chcGridApi.formApi?.getFieldComponentRef('warehouseId').params
+              ) {
+                chcGridApi.formApi.getFieldComponentRef(
+                  'warehouseId',
+                ).params.dependencies = {
+                  departmentId: values.departmentId,
+                  regionId: values.departmentId,
+                };
+                chcGridApi.formApi
+                  ?.getFieldComponentRef('warehouseId')
+                  ?.fetchApi();
+                chcGridApi.formApi?.setFieldValue('warehouseId', undefined);
+              }
+            },
+          },
+          defaultValue: '',
+          fieldName: 'warehouseId',
+          label: '采购仓库',
+        },
+        {
+          component: 'ChcSelect',
+          componentProps: () => {
+            return {
+              // autoChooseFirstOption: true,
+              dictUrl:
+                '/baseHandleAction/warehouseBPartner.do?readWrite=Y&level1=N&selectDefault=Y',
+              placeholder: '请选择执行科室',
+              paginate: false,
+              showChooseAll: '',
+              immediate: true,
+              labelField: 'name',
+              valueField: 'id',
+              afterFetch(res: any) {
+                return { ...res, rows: undefined, records: res.rows };
+              },
+            };
+          },
+          defaultValue: '',
+          fieldName: 'applyBPartnerId',
+          label: '执行科室',
+        },
+        {
+          component: 'Input',
+          fieldName: 'orderNo',
+          label: '跟台单号',
+        },
+        {
+          component: 'Input',
+          fieldName: 'productName',
+          label: '药品',
+        },
+        {
+          component: 'ChcSelect',
+          componentProps: () => {
+            return {
+              options: [
+                { value: '', label: '全选' },
+                { value: 'N', label: '待提交' },
+                { value: 'WC', label: '待审核' },
+                { value: 'WI', label: '待指示' },
+                { value: 'Y', label: '已出库' },
+                { value: 'C', label: '已关闭' },
+              ],
+              placeholder: '请选择',
+              paginate: false,
+            };
+          },
+          defaultValue: '',
+          fieldName: 'processStatus',
+          label: '状态',
+        },
+        {
+          component: 'ChcSelect',
+          componentProps: () => {
+            return {
+              dictUrl: '/baseHandleAction/vendor.do',
+              placeholder: '请选择供应商',
+              paginate: false,
+              showChooseAll: '',
+              immediate: true,
+              labelField: 'name',
+              valueField: 'id',
+              afterFetch(res: any) {
+                return { ...res, rows: undefined, records: res.rows };
+              },
+            };
+          },
+          defaultValue: '',
+          fieldName: 'bpartnerId',
+          label: '供应商',
+        },
+        {
+          component: 'Input',
+          fieldName: 'patientName',
+          label: '患者姓名',
+        },
+      ],
+      gridEvents: {
+        radioChange: async ({ row }: { row: any }) => {
+          if (row && row.orderId) {
+            parentTableParams.value.orderId = row.orderId;
+            childGridApi.query({ orderId: row.orderId });
+            await chcGridApi.grid.clearCheckboxRow();
+            chcGridApi.grid.setCheckboxRow(row, true);
+          } else {
+            // 父表没数据，子表要清空
+            parentTableParams.value.orderId = undefined;
+            // childGridApi.query({ orderId: row.orderId });
+          }
+        },
+      },
+      beforeFetchFn: (params) => {
+        return {
+          ...params,
+        };
+      },
+      afterFetchFn: (params) => {
+        childGridApi.grid.reloadData([]);
+        return {
+          ...params,
+          records: params.rows,
+        };
+      },
+      customModals: {
+        'ViewWorkflowModal-viewWorkflowModalApi': {
+          closable: true,
+          draggable: true,
+          // 连接抽离的组件
+          connectedComponent: ViewWorkflowModalComp,
+        },
+      },
+    },
+  );
+const handleViewWorkflow = (scope: any) => {
+  viewWorkflowModalApi
+    ?.setData({
+      ...scope.row,
+    })
+    .open();
+};
+const handleSearch = () => {
+  childGridApi.query({
+    orderId: parentTableParams.value.orderId,
+    productName: parentTableParams.value.productName,
+  });
+};
+onMounted(() => {
+  handleFormSubmit();
+});
+</script>
+
+<template>
+  <Page content-class="p-[0.5rem]" auto-content-height>
+    <div class="h-full">
+      <PageSplitLazy
+        :distribute="0.6"
+        :line-thickness="6"
+        :is-vertical="false"
+        background-color="#f1f3f6"
+        hover-color="#c0c4cc"
+        :has-line-tip="true"
+      >
+        <template #first>
+          <ViewWorkflowModal />
+          <ChcGrid class="flex-1 overflow-hidden">
+            <template #action="scope">
+              <Button
+                type="primary"
+                class="h-[24px] pb-0 pl-[6px] pr-[6px] pt-0"
+                @click="handleViewWorkflow(scope)"
+                :data-testid="`button_handleViewWorkflow_${scope.rowIndex}`"
+              >
+                查看审批流程
+                <template #icon>
+                  <viewActionIcon />
+                </template>
+              </Button>
+            </template>
+            <!-- <template #toolbar-actions>
+              <Button type="primary" class="mr-[0.5rem]" @click="handlePrint">
+                打印
+                <template #icon>
+                  <SvgPrintFillIcon />
+                </template>
+              </Button>
+              <Button type="primary" class="mr-[0.5rem]" @click="handleRePrint">
+                补打
+                <template #icon>
+                  <SvgPrintFillIcon />
+                </template>
+              </Button>
+            </template> -->
+          </ChcGrid>
+        </template>
+        <template #second>
+          <ChildGrid>
+            <template #qtyProcessDefault="scope">
+              <InputNumber
+                class="w-full"
+                :min="0"
+                v-model:value="scope.row.qtyProcess"
+                :data-testid="`inputNumber_qtyProcess_${scope.rowIndex}`"
+              />
+            </template>
+            <template #toolbar-actions>
+              <Input
+                v-model:value="parentTableParams.productName"
+                class="mr-[0.5rem] w-[240px]"
+                placeholder="编码/拼音码/名称"
+                @keyup.enter="handleSearch"
+                allow-clear
+                data-testid="input_productNameSearch"
+              />
+              <Button
+                type="primary"
+                @click="handleSearch"
+                class="mr-[0.5rem]"
+                data-testid="button_childhandleSearch"
+              >
+                搜索
+                <template #icon>
+                  <SearchActionIcon />
+                </template>
+              </Button>
+            </template>
+          </ChildGrid>
+        </template>
+      </PageSplitLazy>
+    </div>
+  </Page>
+</template>
+
+<style scoped>
+::v-deep(.ant-btn > svg) {
+  margin-right: -2px;
+  margin-bottom: 3px;
+  margin-left: 2px;
+}
+
+::v-deep(.vxe-grid--toolbar-wrapper .vxe-tools--wrapper .ant-btn > svg) {
+  margin-right: -1px;
+  margin-bottom: 4px;
+  margin-left: -5px;
+}
+</style>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta content="text/html;charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta http-equiv ="Pragma" content="no-cache"/>
+	<meta http-equiv="Cache-Control" content="no cache"/>
+	<meta http-equiv="Expires" content="0"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" type="text/css" href="../../plugins/layui/css/layui.css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="../../css/fs.css" media="all"/>
+	<script type="text/javascript" src="../../plugins/layui/layui.js"></script>
+	<script type="text/javascript" src="../../plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugins/frame/js/common.js"></script>
+	<style>
+		body { padding: 15px; background: #f5f5f5; }
+		.chunk-card {
+			background: #fff;
+			border: 1px solid #e0e0e0;
+			border-radius: 6px;
+			margin-bottom: 12px;
+			overflow: hidden;
+		}
+		.chunk-header {
+			background: #f7f7f7;
+			padding: 10px 15px;
+			border-bottom: 1px solid #e8e8e8;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.chunk-header .title { font-weight: bold; color: #333; }
+		.chunk-header .meta { color: #999; font-size: 12px; }
+		.chunk-body { padding: 12px 15px; }
+		.chunk-body .content {
+			color: #555;
+			font-size: 13px;
+			line-height: 1.8;
+			white-space: pre-wrap;
+			word-break: break-all;
+			max-height: 300px;
+			overflow-y: auto;
+		}
+		.chunk-body .content.expanded { max-height: none; }
+		.chunk-body .toggle-btn { margin-top: 8px; }
+		.chunk-body .tags { margin-top: 8px; }
+		.chunk-body .tag {
+			display: inline-block;
+			background: #e8f4fd;
+			color: #1E9FFF;
+			border-radius: 3px;
+			padding: 2px 8px;
+			font-size: 12px;
+			margin-right: 6px;
+		}
+		.chunk-body img { max-width: 100%; border-radius: 4px; margin: 8px 0; }
+		.chunk-body table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+		.chunk-body table th, .chunk-body table td {
+			border: 1px solid #ddd;
+			padding: 6px 8px;
+			font-size: 13px;
+		}
+		.chunk-body table th { background: #f2f2f2; }
+		.empty-tip { text-align: center; color: #999; padding: 40px 0; }
+		.loading-tip { text-align: center; color: #999; padding: 40px 0; }
+		.rich-html { display: none; }
+	</style>
+</head>
+<body>
+	<div class="layui-container" style="width:100%;padding:0;">
+		<div class="chunk-list" id="chunkList">
+			<div class="loading-tip" id="loadingTip"><i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i> 加载中...</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	layui.use(['chcitApp','layer'], function(){
+		var App = layui.chcitApp, layer = layui.layer, $ = layui.jquery;
+
+		// 获取 URL 参数 docId
+		function getQueryParam(name){
+			var reg = new RegExp('[?&]' + name + '=([^&]*)');
+			var match = location.search.match(reg);
+			return match ? decodeURIComponent(match[1]) : '';
+		}
+
+		function formatDate(val){
+			if(!val) return '-';
+			var d = new Date(val);
+			if(isNaN(d.getTime())) return val;
+			function pad(n){ return n < 10 ? '0' + n : n; }
+			return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+		}
+
+		function parseTags(tagsStr){
+			if(!tagsStr) return [];
+			try {
+				var arr = JSON.parse(tagsStr);
+				return Array.isArray(arr) ? arr : [];
+			} catch(e) {
+				return tagsStr.split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+			}
+		}
+
+		function parseExtendMeta(metaStr){
+			if(!metaStr) return {};
+			try { return JSON.parse(metaStr) || {}; } catch(e) { return {}; }
+		}
+
+		// 渲染富文本片段（优先 content_html，降级纯文本）
+		function renderChunkContent(chunk){
+			var meta = parseExtendMeta(chunk.EXTEND_META);
+			var html = meta.content_html;
+			if(html && html.trim()){
+				return '<div class="rich-html-render">' + html + '</div>';
+			}
+			return '<div class="content" id="content_' + chunk.CHUNK_ID + '">' +
+				escapeHtml(chunk.CONTENT || '') + '</div>';
+		}
+
+		function escapeHtml(text){
+			if(!text) return '';
+			return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+		}
+
+		// 加载片段列表
+		function loadChunks(){
+			var docId = getQueryParam('docId');
+			if(!docId){
+				$('#chunkList').html('<div class="empty-tip">缺少文档ID参数</div>');
+				return;
+			}
+
+			App.submit({
+				url: App.getContextPath() + 'aIChatAction/listChunks.do',
+				data: { docId: docId },
+				succeed: function(res){
+					if(!res.success){
+						$('#chunkList').html('<div class="empty-tip">' + (res.message || '查询失败') + '</div>');
+						return;
+					}
+					var chunks = res.data || [];
+					if(chunks.length === 0){
+						$('#chunkList').html('<div class="empty-tip">该文档暂无片段</div>');
+						return;
+					}
+
+					var html = '';
+					for(var i=0; i<chunks.length; i++){
+						var c = chunks[i];
+						var tags = parseTags(c.TAGS);
+						var tagHtml = '';
+						for(var j=0; j<tags.length; j++){
+							tagHtml += '<span class="tag">' + escapeHtml(tags[j]) + '</span>';
+						}
+
+						html += '<div class="chunk-card">' +
+							'<div class="chunk-header">' +
+								'<span class="title">' + (i+1) + '. ' + escapeHtml(c.TITLE || '未命名') + '</span>' +
+								'<span class="meta">' + (c.IS_ACTIVE === 'Y' ? '<span style="color:#16b777;">已启用</span>' : (c.IS_ACTIVE === 'N' ? '<span style="color:#FFB800;">待审核</span>' : '<span style="color:#999;">已禁用</span>')) + ' · 排序:' + (c.SORT_NO || 0) + ' · 检索:' + (c.SEARCH_SCORE || 0) + ' · 创建:' + formatDate(c.CREATED_TIME) + '</span>' +
+							'</div>' +
+							'<div class="chunk-body">' +
+								renderChunkContent(c) +
+								(tagHtml ? '<div class="tags">' + tagHtml + '</div>' : '') +
+							'</div>' +
+						'</div>';
+					}
+					$('#chunkList').html(html);
+
+					// 富文本中的图片 URL 归一化：loadImage.do 相对路径 → ../aIChatAction/loadImage.do
+					$('.rich-html-render img').each(function(){
+						var src = $(this).attr('src') || '';
+						if(src.indexOf('loadImage.do') >= 0 && src.indexOf('aIChatAction') < 0){
+							$(this).attr('src', '../aIChatAction/' + src.replace(/^(\.\.\/)*/, ''));
+						}
+					});
+				},
+				error: function(res){
+					$('#chunkList').html('<div class="empty-tip">' + (res.message || '请求失败') + '</div>');
+				}
+			});
+		}
+
+		loadChunks();
+	});
+	</script>
+</body>
+</html>

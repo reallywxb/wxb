@@ -1,0 +1,165 @@
+import type { CrudGridOptions } from '#/types/common';
+import type { CrudColsType } from '#/types/datatable/useChcCrud';
+
+const columns: CrudColsType = [
+  { fixed: 'left', title: '序号', type: 'seq', width: 50 },
+  {
+    dict: true,
+    field: 'orgId_name',
+    title: '机构',
+    minWidth: 100,
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'deptId_name',
+    title: '部门',
+    minWidth: 100,
+    sortable: true,
+  },
+  { dict: true, field: 'name', title: '姓名', minWidth: 80, sortable: true },
+  {
+    dict: true,
+    field: 'employeeCode',
+    title: '员工编码',
+    minWidth: 100,
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'employeeType_name',
+    title: '员工类别',
+    minWidth: 90,
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'sex_name',
+    title: '性别',
+    minWidth: 60,
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'birthday',
+    title: '生日',
+    minWidth: 90,
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'idCardType_name',
+    title: '证件类型',
+    minWidth: 100,
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'idCardNo',
+    title: '证件号码',
+    minWidth: 100,
+    sortable: true,
+  },
+  { dict: true, field: 'mobile', title: '手机', minWidth: 100, sortable: true },
+  {
+    dict: true,
+    field: 'telephone',
+    title: '固话',
+    minWidth: 100,
+    sortable: true,
+  },
+  { dict: true, field: 'email', title: '邮箱', minWidth: 100, sortable: true },
+  {
+    dict: true,
+    field: 'positionId_name',
+    title: '主岗位',
+    minWidth: 100,
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'supervisorId_name',
+    title: '上级主管',
+    minWidth: 100,
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'dataScope_name',
+    title: '权限级别',
+    minWidth: 100,
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'userId_name',
+    title: '登录用户',
+    minWidth: 100,
+    sortable: true,
+  },
+  { dict: true, field: 'remark', title: '备注', minWidth: 100, sortable: true },
+  {
+    dict: true,
+    field: 'isActive',
+    title: '是否启用',
+    width: 90,
+    formatter: ({ cellValue }: any) => (cellValue ? '是' : '否'),
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'createdBy_name',
+    title: '创建人',
+    minWidth: 80,
+    sortable: true,
+  },
+  {
+    dict: true,
+    field: 'createTime',
+    title: '创建时间',
+    width: 130,
+    sortable: true,
+  },
+  {
+    align: 'center',
+    field: 'action',
+    fixed: 'right',
+    slots: { default: 'action' },
+    width: 140,
+    title: '操作',
+  },
+];
+
+export const gridOptions: CrudGridOptions<deptDto> = {
+  proxyConfig: {
+    autoLoad: true,
+  },
+  columns,
+};
+
+export const subGridOptions: CrudGridOptions<deptDto> = {
+  columns: [
+    { fixed: 'left', title: '序号', type: 'seq', width: 50 },
+    { field: 'orgId_name', title: '机构', minWidth: 100, sortable: true },
+    { field: 'employeeId_name', title: '员工', minWidth: 100, sortable: true },
+    { field: 'positionId_name', title: '岗位', minWidth: 100, sortable: true },
+    { field: 'remark', title: '备注', minWidth: 100, sortable: true },
+    {
+      field: 'isActive',
+      title: '是否启用',
+      width: 100,
+      formatter: ({ cellValue }: any) => (cellValue ? '是' : '否'),
+      sortable: true,
+    },
+    { field: 'createdBy_name', title: '创建人', minWidth: 100, sortable: true },
+    { field: 'createTime', title: '创建时间', minWidth: 100, sortable: true },
+    {
+      align: 'center',
+      field: 'action',
+      fixed: 'right',
+      slots: { default: 'action' },
+      width: 140,
+      title: '操作',
+    },
+  ],
+};

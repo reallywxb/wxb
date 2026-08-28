@@ -1,0 +1,18 @@
+{
+  "buyPlan": {
+    "orderPlanNo": "采购计划单号",
+    "datePlaned": "采购计划生成时间",
+    "deliveryPlanDate": "要求送达时间",
+    "warehouseName": "采购仓库",
+    "applyBPartnerName": "需求仓库",
+    "priorityRuleName": "优先级",
+    "totalAmt": "金额",
+    "lineCount": "采购品种数量",
+    "totalCount": "采购数量",
+    "sourceTypeName": "采购来源",
+    "createdByName": "创建人",
+    "description": "备注",
+    "dateOrdered": "计划生成时间",
+    "isCrossDocking": "是否直供"
+  }
+}
