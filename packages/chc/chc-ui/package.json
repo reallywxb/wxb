@@ -1,0 +1,50 @@
+{
+  "name": "@vben/chc-ui",
+  "version": "1.0.0",
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "packages/chc/chc-ui"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./chc-table": {
+      "types": "./src/chc-table/index.ts",
+      "default": "./src/chc-table/index.ts"
+    }
+  },
+  "dependencies": {
+    "@vben-core/form-ui": "workspace:*",
+    "@vben-core/icons": "workspace:*",
+    "@vben-core/popup-ui": "workspace:*",
+    "@vben-core/shadcn-ui": "workspace:*",
+    "@vben-core/shared": "workspace:*",
+    "@vben/access": "workspace:*",
+    "@vben/chc-icons": "workspace:*",
+    "@vben/common-ui": "workspace:*",
+    "@vben/icons": "workspace:*",
+    "@vben/locales": "workspace:*",
+    "@vben/plugins": "workspace:*",
+    "@vben/request": "workspace:*",
+    "@vben/types": "workspace:*",
+    "@vben/utils": "workspace:*",
+    "@vueuse/core": "catalog:",
+    "ant-design-vue": "catalog:",
+    "dayjs": "catalog:",
+    "jszip": "^3.10.1",
+    "pinyin-match": "^1.2.5",
+    "quill": "catalog:",
+    "vee-validate": "catalog:",
+    "vue": "catalog:",
+    "vxe-pc-ui": "catalog:",
+    "vxe-table": "catalog:",
+    "zod": "catalog:"
+  }
+}

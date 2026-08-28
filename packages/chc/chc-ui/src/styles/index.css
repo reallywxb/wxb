@@ -1,0 +1,25 @@
+/* 表单操作区域样式 */
+.formActionAreaStyle {
+  display: flex;
+  grid-column: -2 / -1;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-left: auto;
+  line-height: 32px;
+
+  /* margin-bottom: 2px; */
+}
+
+.tag-row-tag::before {
+  --sqrt2: 1.4142;
+  --size: 10px;
+
+  position: absolute;
+  top: calc(50% - var(--size) * var(--sqrt2) / 2);
+  left: 0;
+  content: '';
+  border-color: transparent hsl(var(--primary)) transparent transparent;
+  border-width: 0 var(--size) var(--size) 0;
+  transform: rotate(45deg);
+  transform-origin: 0 0;
+}

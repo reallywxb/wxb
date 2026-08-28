@@ -1,0 +1,2628 @@
+/**
+ * @file icon.css
+ */
+
+@font-face {
+  font-family: 'IconFont1';
+  src: url('IconFont.eot'); /* IE9 */
+  src:
+    url('IconFont.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */ url('IconFont.woff2') format('woff2'),
+    /* chrome、firefox、opera、Safari, Android, iOS */ url('IconFont.woff')
+      format('woff'),
+    /* chrome、firefox */ url('IconFont.ttf') format('truetype'),
+    /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+      url('IconFont.svg#uxfonteditor') format('svg'); /* iOS 4.1- */
+}
+
+.icon {
+  font-family: 'IconFont1' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-transform: none;
+  speak: never;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-x::before {
+  content: '\78';
+}
+
+.icon-icondocsfill::before {
+  content: '\e612';
+}
+
+.icon-icondocs::before {
+  content: '\e613';
+}
+
+.icon-icontrendsfill::before {
+  content: '\e614';
+}
+
+.icon-icontrends::before {
+  content: '\e615';
+}
+
+.icon-iconstatistics::before {
+  content: '\e617';
+}
+
+.icon-iconfoot::before {
+  content: '\e61f';
+}
+
+.icon-iconcompany::before {
+  content: '\e624';
+}
+
+.icon-iconfriends::before {
+  content: '\e63e';
+}
+
+.icon-icongroupfriendsfill::before {
+  content: '\e63f';
+}
+
+.icon-iconhelpfill::before {
+  content: '\e640';
+}
+
+.icon-iconphonefriendsfill::before {
+  content: '\e643';
+}
+
+.icon-iconservicewindowfill::before {
+  content: '\e646';
+}
+
+.icon-iconunicom::before {
+  content: '\e64c';
+}
+
+.icon-iconlocation::before {
+  content: '\e64e';
+}
+
+.icon-iconpersonclockfill::before {
+  content: '\e654';
+}
+
+.icon-iconpersonclock::before {
+  content: '\e655';
+}
+
+.icon-iconpersonwarmfill::before {
+  content: '\e656';
+}
+
+.icon-iconpersonwarm::before {
+  content: '\e657';
+}
+
+.icon-iconplayfill::before {
+  content: '\e659';
+}
+
+.icon-iconvideo::before {
+  content: '\e660';
+}
+
+.icon-iconappfill::before {
+  content: '\e661';
+}
+
+.icon-iconapp::before {
+  content: '\e662';
+}
+
+.icon-icongpsfill::before {
+  content: '\e663';
+}
+
+.icon-iconscanfriendsfill::before {
+  content: '\e644';
+}
+
+.icon-iconsearchfriendsfill::before {
+  content: '\e645';
+}
+
+.icon-iconseelog::before {
+  content: '\e665';
+}
+
+.icon-iconwritelog::before {
+  content: '\e667';
+}
+
+.icon-iconcertification::before {
+  content: '\e668';
+}
+
+.icon-iconcomputerfill::before {
+  content: '\e66b';
+}
+
+.icon-icondatafill::before {
+  content: '\e66c';
+}
+
+.icon-iconfoundf::before {
+  content: '\e66c';
+}
+
+.icon-signcontract::before {
+  content: '\e78a';
+}
+
+.icon-iconphonepersonfill::before {
+  content: '\e672';
+}
+
+.icon-iconrecordfill::before {
+  content: '\e673';
+}
+
+.icon-iconsafecenterfill::before {
+  content: '\e674';
+}
+
+.icon-iconsettingroundfill::before {
+  content: '\e676';
+}
+
+.icon-iconroundaddfill::before {
+  content: '\e678';
+}
+
+.icon-iconroundreducefill::before {
+  content: '\e67c';
+}
+
+.icon-icondingtypefill::before {
+  content: '\e681';
+}
+
+.icon-icondingvoicesfill::before {
+  content: '\e682';
+}
+
+.icon-iconround::before {
+  content: '\e621';
+}
+
+.icon-icondingdelete::before {
+  content: '\e67e';
+}
+
+.icon-icondingplayfill::before {
+  content: '\e67f';
+}
+
+.icon-icondingstopfill::before {
+  content: '\e680';
+}
+
+.icon-iconroundfill::before {
+  content: '\e683';
+}
+
+.icon-anonymous-iconfont::before {
+  content: '\e68a';
+}
+
+.icon-anonymous-iconfont1::before {
+  content: '\e68b';
+}
+
+.icon-0::before {
+  content: '\e68c';
+}
+
+.icon-1::before {
+  content: '\e68d';
+}
+
+.icon-2::before {
+  content: '\e68e';
+}
+
+.icon-3::before {
+  content: '\e68f';
+}
+
+.icon-4::before {
+  content: '\e690';
+}
+
+.icon-5::before {
+  content: '\e691';
+}
+
+.icon-6::before {
+  content: '\e692';
+}
+
+.icon-7::before {
+  content: '\e693';
+}
+
+.icon-8::before {
+  content: '\e694';
+}
+
+.icon-9::before {
+  content: '\e695';
+}
+
+.icon-iconstarfriends::before {
+  content: '\e687';
+}
+
+.icon-iconwarnfill::before {
+  content: '\e696';
+}
+
+.icon-iconwarn::before {
+  content: '\e697';
+}
+
+.icon-iconswmachinefill::before {
+  content: '\e699';
+}
+
+.icon-iconswpowerfill::before {
+  content: '\e69a';
+}
+
+.icon-iconswrelevancefill::before {
+  content: '\e69b';
+}
+
+.icon-iconsignalfill::before {
+  content: '\e69f';
+}
+
+.icon-guojidianhua::before {
+  content: '\e6a2';
+}
+
+.icon-iconsafefill::before {
+  content: '\e6a5';
+}
+
+.icon-iconnoprotectfill::before {
+  content: '\e64a';
+}
+
+.icon-iconprotectfill::before {
+  content: '\e6aa';
+}
+
+.icon-iconplay1::before {
+  content: '\e6b1';
+}
+
+.icon-iconreplay::before {
+  content: '\e6b2';
+}
+
+.icon-iconmine::before {
+  content: '\e609';
+}
+
+.icon-iconemptypersonone::before {
+  content: '\e6b4';
+}
+
+.icon-iconemptypersontwo::before {
+  content: '\e6b5';
+}
+
+.icon-iconallappfill::before {
+  content: '\e6b7';
+}
+
+.icon-iconallapp::before {
+  content: '\e6b8';
+}
+
+.icon-iconpersoncard::before {
+  content: '\e6b6';
+}
+
+.icon-iconnextarrow::before {
+  content: '\e6bd';
+}
+
+.icon-iconfunction::before {
+  content: '\e6be';
+}
+
+.icon-iconemptycall::before {
+  content: '\e6c0';
+}
+
+.icon-iconroundgarbagefill::before {
+  content: '\e6c1';
+}
+
+.icon-iconedit::before {
+  content: '\e6c4';
+}
+
+.icon-icon::before {
+  content: '\e6c5';
+}
+
+.icon-iconvoip::before {
+  content: '\e6bc';
+}
+
+.icon-iconemptydinghold::before {
+  content: '\e6c6';
+}
+
+.icon-iconsend::before {
+  content: '\e6c7';
+}
+
+.icon-iconshakehandfill::before {
+  content: '\e6c8';
+}
+
+.icon-iconfill::before {
+  content: '\e677';
+}
+
+.icon-iconbizcallfill::before {
+  content: '\e6c9';
+}
+
+.icon-iconservice::before {
+  content: '\e637';
+}
+
+.icon-icon2dbarcode::before {
+  content: '\e6cc';
+}
+
+.icon-iconrecharge::before {
+  content: '\e6d5';
+}
+
+.icon-iconnormalphonefill::before {
+  content: '\e6d0';
+}
+
+.icon-iconvoicephonefill::before {
+  content: '\e6d1';
+}
+
+.icon-iconnewding::before {
+  content: '\e6d2';
+}
+
+.icon-iconconsignee::before {
+  content: '\e6d3';
+}
+
+.icon-iconsender::before {
+  content: '\e6d4';
+}
+
+.icon-icongps::before {
+  content: '\e6d6';
+}
+
+.icon-icon2dbarcodepc::before {
+  content: '\e6d7';
+}
+
+.icon-iconpersoncardpc::before {
+  content: '\e6d8';
+}
+
+.icon-iconbeacon::before {
+  content: '\e6d9';
+}
+
+.icon-iconservicecenterfill::before {
+  content: '\e6da';
+}
+
+.icon-icon-more-two-fill::before {
+  content: '\e781';
+}
+
+.icon-icon-cspace-notrends::before {
+  content: '\e782';
+}
+
+.icon-icon-cspace-nouse::before {
+  content: '\e783';
+}
+
+.icon-icon-share::before {
+  content: '\e78c';
+}
+
+.icon-icon-attestation::before {
+  content: '\e785';
+}
+
+.icon-icon-person-write::before {
+  content: '\e786';
+}
+
+.icon-icon-person-ding::before {
+  content: '\e788';
+}
+
+.icon-icon-person-secret::before {
+  content: '\e78a';
+}
+
+.icon-icon-barcode-fill::before {
+  content: '\e78d';
+}
+
+.icon-icon-copylink-fill::before {
+  content: '\e78f';
+}
+
+.icon-icon-roundwork-fill::before {
+  content: '\e792';
+}
+
+.icon-icon-person-secret-two::before {
+  content: '\e790';
+}
+
+.icon-icon-person-secret-three::before {
+  content: '\e791';
+}
+
+.icon-icon-zoom::before {
+  content: '\e698';
+}
+
+.icon-icon-appcenter-add::before {
+  content: '\e794';
+}
+
+.icon-icon-appcenter-setting::before {
+  content: '\e795';
+}
+
+.icon-icon-attestation-two::before {
+  content: '\e798';
+}
+
+.icon-icon-appcenter-setting-two::before {
+  content: '\e799';
+}
+
+.icon-icon-appcenter-add-two::before {
+  content: '\e79a';
+}
+
+.icon-icon-deadline::before {
+  content: '\e79c';
+}
+
+.icon-icon-calendar-close::before {
+  content: '\e7a0';
+}
+
+.icon-icon-calendar-next::before {
+  content: '\e7a1';
+}
+
+.icon-icon-calendar-others::before {
+  content: '\e7a2';
+}
+
+.icon-icon-calendar-morningsvg::before {
+  content: '\e7a3';
+}
+
+.icon-icon-calendar-sun::before {
+  content: '\e7a4';
+}
+
+.icon-icon-calendar-afternoon::before {
+  content: '\e7a5';
+}
+
+.icon-icon-copylink-samll::before {
+  content: '\e7a8';
+}
+
+.icon-icon-share-fill::before {
+  content: '\e7a9';
+}
+
+.icon-ic-roundcopy-fill::before {
+  content: '\e7aa';
+}
+
+.icon-ic-roundshare-fill::before {
+  content: '\e7ab';
+}
+
+.icon-icon-login-eye::before {
+  content: '\e7ae';
+}
+
+.icon-icon-revocation::before {
+  content: '\e7ac';
+}
+
+.icon-icon-pen::before {
+  content: '\e7ad';
+}
+
+.icon-icon-removedialogue::before {
+  content: '\e7af';
+}
+
+.icon-icon-bizcall-phone::before {
+  content: '\e6ad';
+}
+
+.icon-icon-checkbox-square-done::before {
+  content: '\e7b0';
+}
+
+.icon-icon-checkbox-square::before {
+  content: '\e7b1';
+}
+
+.icon-icon-dingattestation::before {
+  content: '\e7b2';
+}
+
+.icon-icon-login-password-eye::before {
+  content: '\e608';
+}
+
+.icon-icon-robot-round-fill::before {
+  content: '\e7b3';
+}
+
+.icon-icon-eyes-line::before {
+  content: '\e7b4';
+}
+
+.icon-icon-list-smartdevice::before {
+  content: '\e7b5';
+}
+
+.icon-icon-add-big::before {
+  content: '\e6ae';
+}
+
+.icon-icon-cal-afternoon::before {
+  content: '\e7b7';
+}
+
+.icon-icon-cal-next::before {
+  content: '\e7b8';
+}
+
+.icon-icon-cal-sun::before {
+  content: '\e7b9';
+}
+
+.icon-icon-cal-others::before {
+  content: '\e7ba';
+}
+
+.icon-icon-cal-none::before {
+  content: '\e7bb';
+}
+
+.icon-icon-cal-afternoon-arr::before {
+  content: '\e7bc';
+}
+
+.icon-icon-round-wifi::before {
+  content: '\e7bd';
+}
+
+.icon-icon-plaint::before {
+  content: '\e7be';
+}
+
+.icon-icon-gl-finger::before {
+  content: '\e7bf';
+}
+
+.icon-icon-bizcall::before {
+  content: '\e7c2';
+}
+
+.icon-icon-organize-fill::before {
+  content: '\e7c0';
+}
+
+.icon-icon-SIMCard::before {
+  content: '\e7c3';
+}
+
+.icon-icon-compile-thick::before {
+  content: '\e7c7';
+}
+
+.icon-icon-upload::before {
+  content: '\e7c8';
+}
+
+.icon-icon-garbage::before {
+  content: '\e7d5';
+}
+
+.icon-icon-petal::before {
+  content: '\e7db';
+}
+
+.icon-icon-contact::before {
+  content: '\e7e3';
+}
+
+.icon-icon-workphone-fill::before {
+  content: '\e7e4';
+}
+
+.icon-icon-c-error::before {
+  content: '\e7e5';
+}
+
+.icon-icon-nowifi::before {
+  content: '\e7e6';
+}
+
+.icon-icon-refresh::before {
+  content: '\e7e7';
+}
+
+.icon-icon-doneline::before {
+  content: '\e7ea';
+}
+
+.icon-icon-rounddown::before {
+  content: '\e7eb';
+}
+
+.icon-icon-likegood-fill::before {
+  content: '\e7ec';
+}
+
+.icon-icon-daildelet::before {
+  content: '\e6de';
+}
+
+.icon-icon-daildown::before {
+  content: '\e6df';
+}
+
+.icon-icon-h-loading::before {
+  content: '\e7ef';
+}
+
+.icon-icon-robot-two-round-fill::before {
+  content: '\e7f0';
+}
+
+.icon-icon-signalweak1::before {
+  content: '\e7fd';
+}
+
+.icon-icon-starcancel-fill::before {
+  content: '\e7f4';
+}
+
+.icon-icon-dail::before {
+  content: '\e811';
+}
+
+.icon-icon-person-message::before {
+  content: '\e812';
+}
+
+.icon-icon-mail-read-fill::before {
+  content: '\e814';
+}
+
+.icon-icon-person-phone::before {
+  content: '\e81b';
+}
+
+.icon-icon-invitefriends-fill::before {
+  content: '\e81c';
+}
+
+.icon-icon-eskm::before {
+  content: '\e81d';
+}
+
+.icon-icon-module-fill::before {
+  content: '\e822';
+}
+
+.icon-icon-watchpost-fill::before {
+  content: '\e823';
+}
+
+.icon-icon-bluetooth::before {
+  content: '\e825';
+}
+
+.icon-icon-simcard-one::before {
+  content: '\e829';
+}
+
+.icon-icon-simcard-two::before {
+  content: '\e82a';
+}
+
+.icon-icon-copy-fill::before {
+  content: '\e82c';
+}
+
+.icon-icon-arrow-up::before {
+  content: '\e830';
+}
+
+.icon-icon-clock-fill-two::before {
+  content: '\e834';
+}
+
+.icon-icon-evaluate::before {
+  content: '\e837';
+}
+
+.icon-icon-revise::before {
+  content: '\e838';
+}
+
+.icon-icon-meeting-signin::before {
+  content: '\e839';
+}
+
+.icon-icon-report::before {
+  content: '\e83c';
+}
+
+.icon-icon-num-seven::before {
+  content: '\e840';
+}
+
+.icon-icon-num-four::before {
+  content: '\e841';
+}
+
+.icon-icon-num-one::before {
+  content: '\e842';
+}
+
+.icon-icon-num-nine::before {
+  content: '\e843';
+}
+
+.icon-icon-num-eight::before {
+  content: '\e844';
+}
+
+.icon-icon-num-five::before {
+  content: '\e845';
+}
+
+.icon-icon-num-two::before {
+  content: '\e846';
+}
+
+.icon-icon-num-zero::before {
+  content: '\e847';
+}
+
+.icon-icon-num-six::before {
+  content: '\e848';
+}
+
+.icon-icon-num-three::before {
+  content: '\e849';
+}
+
+.icon-icon-ding-ding-fill::before {
+  content: '\e84a';
+}
+
+.icon-icon-ding-meeting-fi::before {
+  content: '\e84c';
+}
+
+.icon-icon-ding-task-fill::before {
+  content: '\e84d';
+}
+
+.icon-icon-ding-meeting::before {
+  content: '\e84e';
+}
+
+.icon-icon-report-fill::before {
+  content: '\e84f';
+}
+
+.icon-icon-recover-fill::before {
+  content: '\e850';
+}
+
+.icon-icon-ding-task::before {
+  content: '\e851';
+}
+
+.icon-icon-phonemeeting-fi::before {
+  content: '\e852';
+}
+
+.icon-icon-phonemeeting::before {
+  content: '\e853';
+}
+
+.icon-icon-revise-fill::before {
+  content: '\e854';
+}
+
+.icon-icon-videomeeting::before {
+  content: '\e856';
+}
+
+.icon-icon-conference-fill::before {
+  content: '\e858';
+}
+
+.icon-icon-gm::before {
+  content: '\e85a';
+}
+
+.icon-icon-Photo-Camera-Bu::before {
+  content: '\e860';
+}
+
+.icon-icon-sendcontacts::before {
+  content: '\e864';
+}
+
+.icon-icon-official-certif::before {
+  content: '\e865';
+}
+
+.icon-icon-closecamera-hov::before {
+  content: '\e6a9';
+}
+
+.icon-icon-outline::before {
+  content: '\e69e';
+}
+
+.icon-icon-allpicture::before {
+  content: '\e869';
+}
+
+.icon-icon-btn::before {
+  content: '\e86b';
+}
+
+.icon-icon-pen-edit::before {
+  content: '\e86c';
+}
+
+.icon-icon-arrow-more::before {
+  content: '\e86d';
+}
+
+.icon-icon-dashedadd::before {
+  content: '\e872';
+}
+
+.icon-icon-invoice::before {
+  content: '\e873';
+}
+
+.icon-alphaicon-wan::before {
+  content: '\e60a';
+}
+
+.icon-icon-tax-number::before {
+  content: '\e874';
+}
+
+.icon-icon-company-page::before {
+  content: '\e875';
+}
+
+.icon-icon-backarrow::before {
+  content: '\e899';
+}
+
+.icon-icon-im-camera::before {
+  content: '\e89a';
+}
+
+.icon-icon-exponent::before {
+  content: '\e89b';
+}
+
+.icon-icon-callrecord::before {
+  content: '\e69c';
+}
+
+.icon-icon-dialrecord::before {
+  content: '\e69d';
+}
+
+.icon-icon-voice-arrow::before {
+  content: '\e89e';
+}
+
+.icon-icon-act-open::before {
+  content: '\e8e6';
+}
+
+.icon-icon-addperson-fill::before {
+  content: '\e8e7';
+}
+
+.icon-icon-annex::before {
+  content: '\e8e8';
+}
+
+.icon-icon-airplay::before {
+  content: '\e8e9';
+}
+
+.icon-icon-addperson::before {
+  content: '\e8ea';
+}
+
+.icon-icon-boss-fill::before {
+  content: '\e8ec';
+}
+
+.icon-icon-calendar-fill::before {
+  content: '\e8ed';
+}
+
+.icon-icon-camera-fill::before {
+  content: '\e8ee';
+}
+
+.icon-icon-approval-fill::before {
+  content: '\e8ef';
+}
+
+.icon-icon-checkbox-fill::before {
+  content: '\e8f0';
+}
+
+.icon-icon-certification-f::before {
+  content: '\e8f1';
+}
+
+.icon-icon-checkbox::before {
+  content: '\e8f2';
+}
+
+.icon-icon-clock-fill::before {
+  content: '\e8f3';
+}
+
+.icon-icon-clock::before {
+  content: '\e8f4';
+}
+
+.icon-icon-closeeye::before {
+  content: '\e8f5';
+}
+
+.icon-icon-collect-fill::before {
+  content: '\e8f6';
+}
+
+.icon-icon-cloudup::before {
+  content: '\e8f7';
+}
+
+.icon-icon-contact-fill::before {
+  content: '\e8f9';
+}
+
+.icon-icon-community::before {
+  content: '\e8fa';
+}
+
+.icon-icon-conf-video-fill::before {
+  content: '\e8fc';
+}
+
+.icon-icon-delete::before {
+  content: '\e8fe';
+}
+
+.icon-icon-details::before {
+  content: '\e8ff';
+}
+
+.icon-icon-ding-fill::before {
+  content: '\e900';
+}
+
+.icon-icon-eye::before {
+  content: '\e901';
+}
+
+.icon-icon-face-fill::before {
+  content: '\e902';
+}
+
+.icon-icon-face::before {
+  content: '\e903';
+}
+
+.icon-icon-doc-fill::before {
+  content: '\e904';
+}
+
+.icon-icon-download::before {
+  content: '\e905';
+}
+
+.icon-icon-doc::before {
+  content: '\e906';
+}
+
+.icon-icon-filter-fill::before {
+  content: '\e907';
+}
+
+.icon-icon-female-fill::before {
+  content: '\e908';
+}
+
+.icon-icon-file::before {
+  content: '\e909';
+}
+
+.icon-icon-filter::before {
+  content: '\e90a';
+}
+
+.icon-icon-file-fill::before {
+  content: '\e90b';
+}
+
+.icon-icon-foot-fill::before {
+  content: '\e90c';
+}
+
+.icon-icon-full-screen::before {
+  content: '\e90d';
+}
+
+.icon-icon-gift-fill::before {
+  content: '\e90e';
+}
+
+.icon-icon-glass::before {
+  content: '\e90f';
+}
+
+.icon-icon-goodmorning::before {
+  content: '\e910';
+}
+
+.icon-icon-hardware::before {
+  content: '\e911';
+}
+
+.icon-icon-goodnight::before {
+  content: '\e912';
+}
+
+.icon-icon-horn::before {
+  content: '\e913';
+}
+
+.icon-icon-inbox-fill::before {
+  content: '\e914';
+}
+
+.icon-icon-index::before {
+  content: '\e915';
+}
+
+.icon-icon-invite-fill::before {
+  content: '\e916';
+}
+
+.icon-icon-inform-fill::before {
+  content: '\e917';
+}
+
+.icon-icon-iPad::before {
+  content: '\e918';
+}
+
+.icon-icon-likegood::before {
+  content: '\e919';
+}
+
+.icon-icon-location-fill::before {
+  content: '\e91a';
+}
+
+.icon-icon-link::before {
+  content: '\e91b';
+}
+
+.icon-icon-lock-fill::before {
+  content: '\e91c';
+}
+
+.icon-icon-male-fill::before {
+  content: '\e91d';
+}
+
+.icon-icon-manage-fill::before {
+  content: '\e91e';
+}
+
+.icon-icon-meeting-signin-1::before {
+  content: '\e91f';
+}
+
+.icon-icon-Mac::before {
+  content: '\e920';
+}
+
+.icon-icon-meeting-fill::before {
+  content: '\e921';
+}
+
+.icon-icon-message-fill::before {
+  content: '\e922';
+}
+
+.icon-icon-mobilephone::before {
+  content: '\e923';
+}
+
+.icon-icon-message::before {
+  content: '\e924';
+}
+
+.icon-icon-mute::before {
+  content: '\e925';
+}
+
+.icon-icon-more::before {
+  content: '\e926';
+}
+
+.icon-icon-nonoticce::before {
+  content: '\e927';
+}
+
+.icon-icon-people-fill::before {
+  content: '\e929';
+}
+
+.icon-icon-photo::before {
+  content: '\e92a';
+}
+
+.icon-icon-photo-fill::before {
+  content: '\e92b';
+}
+
+.icon-icon-ping-fill::before {
+  content: '\e92c';
+}
+
+.icon-icon-QRcode::before {
+  content: '\e92e';
+}
+
+.icon-icon-right-fill::before {
+  content: '\e92f';
+}
+
+.icon-icon-recorder-fill::before {
+  content: '\e930';
+}
+
+.icon-icon-question::before {
+  content: '\e931';
+}
+
+.icon-icon-roundadd::before {
+  content: '\e932';
+}
+
+.icon-icon-roundarrow-left::before {
+  content: '\e933';
+}
+
+.icon-icon-roundclose-fill::before {
+  content: '\e934';
+}
+
+.icon-icon-roundreduce::before {
+  content: '\e935';
+}
+
+.icon-icon-safety-fill::before {
+  content: '\e936';
+}
+
+.icon-icon-search::before {
+  content: '\e937';
+}
+
+.icon-icon-scan::before {
+  content: '\e938';
+}
+
+.icon-icon-sendfile::before {
+  content: '\e939';
+}
+
+.icon-icon-seelog-fill::before {
+  content: '\e93a';
+}
+
+.icon-icon-send-fill::before {
+  content: '\e93b';
+}
+
+.icon-icon-secretbubble::before {
+  content: '\e93c';
+}
+
+.icon-icon-setting-fill::before {
+  content: '\e93d';
+}
+
+.icon-icon-shakehands::before {
+  content: '\e93e';
+}
+
+.icon-icon-share1::before {
+  content: '\e93f';
+}
+
+.icon-icon-service-fill::before {
+  content: '\e940';
+}
+
+.icon-icon-setting::before {
+  content: '\e941';
+}
+
+.icon-icon-shield::before {
+  content: '\e942';
+}
+
+.icon-icon-signin-fill::before {
+  content: '\e943';
+}
+
+.icon-icon-statistics-fill::before {
+  content: '\e944';
+}
+
+.icon-icon-sim-fill::before {
+  content: '\e946';
+}
+
+.icon-icon-star-fill::before {
+  content: '\e947';
+}
+
+.icon-icon-study-fill::before {
+  content: '\e948';
+}
+
+.icon-icon-subordinate::before {
+  content: '\e949';
+}
+
+.icon-icon-task-fill::before {
+  content: '\e94a';
+}
+
+.icon-icon-sunglasses::before {
+  content: '\e94b';
+}
+
+.icon-icon-switchcamera::before {
+  content: '\e94c';
+}
+
+.icon-icon-task::before {
+  content: '\e94d';
+}
+
+.icon-icon-task-done-fill::before {
+  content: '\e94e';
+}
+
+.icon-icon-threeline-fill::before {
+  content: '\e94f';
+}
+
+.icon-icon-transpond::before {
+  content: '\e950';
+}
+
+.icon-icon-trashcan::before {
+  content: '\e951';
+}
+
+.icon-icon-wifiwarning-fil::before {
+  content: '\e952';
+}
+
+.icon-icon-work-fill::before {
+  content: '\e953';
+}
+
+.icon-icon-video-fill::before {
+  content: '\e954';
+}
+
+.icon-icon-warning::before {
+  content: '\e955';
+}
+
+.icon-icon-wifi-fill::before {
+  content: '\e956';
+}
+
+.icon-icon-writelog-fill::before {
+  content: '\e957';
+}
+
+.icon-icon-cspace-fill::before {
+  content: '\e958';
+}
+
+.icon-icon-add::before {
+  content: '\e95b';
+}
+
+.icon-icon-found::before {
+  content: '\e95c';
+}
+
+.icon-icon-group::before {
+  content: '\e95d';
+}
+
+.icon-icon-notice::before {
+  content: '\e95e';
+}
+
+.icon-icon-redpacket-fill::before {
+  content: '\e95f';
+}
+
+.icon-icon-tie::before {
+  content: '\e960';
+}
+
+.icon-icon-signal::before {
+  content: '\e961';
+}
+
+.icon-icon-safety::before {
+  content: '\e962';
+}
+
+.icon-icon-home::before {
+  content: '\e963';
+}
+
+.icon-icon-briefcase::before {
+  content: '\e964';
+}
+
+.icon-icon-at1::before {
+  content: '\e965';
+}
+
+.icon-icon-camera::before {
+  content: '\e966';
+}
+
+.icon-icon-cspace::before {
+  content: '\e967';
+}
+
+.icon-icon-imtop::before {
+  content: '\e968';
+}
+
+.icon-icon-trashcan-fill::before {
+  content: '\e969';
+}
+
+.icon-icon-glass-fill::before {
+  content: '\e96a';
+}
+
+.icon-icon-secret::before {
+  content: '\e96c';
+}
+
+.icon-icon-act-close::before {
+  content: '\e96e';
+}
+
+.icon-icon-notice-fill::before {
+  content: '\e970';
+}
+
+.icon-icon-workmore::before {
+  content: '\e971';
+}
+
+.icon-icon-atention-fill::before {
+  content: '\e972';
+}
+
+.icon-icon-number-one::before {
+  content: '\e973';
+}
+
+.icon-icon-check::before {
+  content: '\e974';
+}
+
+.icon-icon-password::before {
+  content: '\e975';
+}
+
+.icon-icon-number-two::before {
+  content: '\e976';
+}
+
+.icon-icon-cancel::before {
+  content: '\e977';
+}
+
+.icon-icon-workwifi::before {
+  content: '\e618';
+}
+
+.icon-icon-clockcard::before {
+  content: '\e619';
+}
+
+.icon-icon-hardware-fill::before {
+  content: '\e92d';
+}
+
+.icon-icon-excel-fill::before {
+  content: '\e96f';
+}
+
+.icon-icon-mobilephone-fill::before {
+  content: '\e978';
+}
+
+.icon-icon-group-fill::before {
+  content: '\e979';
+}
+
+.icon-icon-phone::before {
+  content: '\e97a';
+}
+
+.icon-icon-phone-fill::before {
+  content: '\e97c';
+}
+
+.icon-icon-scan-fill::before {
+  content: '\e97d';
+}
+
+.icon-icon-roundarrow-righ::before {
+  content: '\e97b';
+}
+
+.icon-icon-search-fill::before {
+  content: '\e97f';
+}
+
+.icon-icon-shakehands-fill::before {
+  content: '\e981';
+}
+
+.icon-icon-secretbubble-fill::before {
+  content: '\e96b';
+}
+
+.icon-icon-secret-fill::before {
+  content: '\e96d';
+}
+
+.icon-icon-addresslist-fill::before {
+  content: '\e983';
+}
+
+.icon-icon-addressbook-fil::before {
+  content: '\e97e';
+}
+
+.icon-icon-VIP-one::before {
+  content: '\e982';
+}
+
+.icon-icon-VIP-two::before {
+  content: '\e984';
+}
+
+.icon-icon-VIP-three::before {
+  content: '\e985';
+}
+
+.icon-icon-VIP-four::before {
+  content: '\e986';
+}
+
+.icon-icon-VIP-five::before {
+  content: '\e987';
+}
+
+.icon-icon-VIP-six::before {
+  content: '\e988';
+}
+
+.icon-icon-branch::before {
+  content: '\e989';
+}
+
+.icon-icon-minimize::before {
+  content: '\e98d';
+}
+
+.icon-icon-live-fill::before {
+  content: '\e98f';
+}
+
+.icon-icon-board-fill::before {
+  content: '\e98e';
+}
+
+.icon-icon-sport::before {
+  content: '\e990';
+}
+
+.icon-icon-focusover::before {
+  content: '\e994';
+}
+
+.icon-icon-focusoff::before {
+  content: '\e995';
+}
+
+.icon-icon-focuson::before {
+  content: '\e996';
+}
+
+.icon-icon-compile::before {
+  content: '\e998';
+}
+
+.icon-icon-gm-fill::before {
+  content: '\e999';
+}
+
+.icon-icon-cmail::before {
+  content: '\e959,\e99a';
+}
+
+.icon-icon-addressbook-head-fill::before {
+  content: '\e99c';
+}
+
+.icon-icon-checkbox-select::before {
+  content: '\e99d';
+}
+
+.icon-icon-lab::before {
+  content: '\e99e';
+}
+
+.icon-icon-right-line::before {
+  content: '\e99f';
+}
+
+.icon-icon-videoplay::before {
+  content: '\e9a0';
+}
+
+.icon-icon-music::before {
+  content: '\e9a1';
+}
+
+.icon-icon-module1::before {
+  content: '\e9a2';
+}
+
+.icon-icon-zip::before {
+  content: '\e9a3';
+}
+
+.icon-icon-a-fill::before {
+  content: '\e9a4';
+}
+
+.icon-icon-voice-fill::before {
+  content: '\e9a5';
+}
+
+.icon-icon-hr-fill::before {
+  content: '\e9a6';
+}
+
+.icon-icon-conference::before {
+  content: '\e993';
+}
+
+.icon-icon-left::before {
+  content: '\e9a8';
+}
+
+.icon-icon-empty-ding::before {
+  content: '\e9a9';
+}
+
+.icon-icon-Aa-fill::before {
+  content: '\e9aa';
+}
+
+.icon-icon-vip-fill::before {
+  content: '\e9ab';
+}
+
+.icon-icon-bluetooth-fail::before {
+  content: '\e9ac';
+}
+
+.icon-icon-bluetooth-succe::before {
+  content: '\e9ad';
+}
+
+.icon-icon-connect-bluetoo::before {
+  content: '\e9ae';
+}
+
+.icon-icon-dmail::before {
+  content: '\e9af';
+}
+
+.icon-icon-otherapp::before {
+  content: '\e9b1';
+}
+
+.icon-icon-suspend::before {
+  content: '\e9b2';
+}
+
+.icon-icon-move::before {
+  content: '\e9b3';
+}
+
+.icon-icon-sticky-to-top::before {
+  content: '\e610';
+}
+
+.icon-icon-ku-fill1::before {
+  content: '\e9b4';
+}
+
+.icon-icon-C-wifi::before {
+  content: '\e9a7';
+}
+
+.icon-icon-C-networksuc::before {
+  content: '\e9b5';
+}
+
+.icon-icon-C-networking::before {
+  content: '\e9b6';
+}
+
+.icon-icon-C-suc::before {
+  content: '\e9b7';
+}
+
+.icon-icon-dail-fill::before {
+  content: '\e99b';
+}
+
+.icon-icon-dail-up-fill::before {
+  content: '\e9b8';
+}
+
+.icon-icon-roundclose::before {
+  content: '\e9b9';
+}
+
+.icon-icon-workphone::before {
+  content: '\e9ba';
+}
+
+.icon-icon-invite::before {
+  content: '\e9bb';
+}
+
+.icon-icon-C-unlink::before {
+  content: '\e9bc';
+}
+
+.icon-icon-subordinate-fil::before {
+  content: '\e9be';
+}
+
+.icon-icon-nocertification::before {
+  content: '\e997';
+}
+
+.icon-icon-PC::before {
+  content: '\e9bf';
+}
+
+.icon-icon-delete-fill::before {
+  content: '\e9c0';
+}
+
+.icon-icon-work::before {
+  content: '\e9c1';
+}
+
+.icon-icon-down::before {
+  content: '\e9c2';
+}
+
+.icon-icon-up::before {
+  content: '\e9c3';
+}
+
+.icon-icon-right::before {
+  content: '\e9c4';
+}
+
+.icon-icon-conf-call-fill1::before {
+  content: '\e9c5';
+}
+
+.icon-icon-bubble-smile::before {
+  content: '\e9c6';
+}
+
+.icon-icon-bubble-smile-fi::before {
+  content: '\e9c7';
+}
+
+.icon-icon-cc-fill::before {
+  content: '\e9c8';
+}
+
+.icon-icon-chat-switch-to-1::before {
+  content: '\e9c9';
+}
+
+.icon-icon-chat-switch-to-2::before {
+  content: '\e9ca';
+}
+
+.icon-icon-hand::before {
+  content: '\e9cb';
+}
+
+.icon-icon-discern-fill::before {
+  content: '\e9cc';
+}
+
+.icon-icon-C-device::before {
+  content: '\e9cd';
+}
+
+.icon-icon-live::before {
+  content: '\e9ce';
+}
+
+.icon-icon-flashlight-off::before {
+  content: '\e991';
+}
+
+.icon-icon-flashlight-on::before {
+  content: '\e992';
+}
+
+.icon-icon-yes-people-fill::before {
+  content: '\e9cf';
+}
+
+.icon-icon-no-people-fill::before {
+  content: '\e9d0';
+}
+
+.icon-icon-wififail-fill::before {
+  content: '\e9d1';
+}
+
+.icon-icon-sound-off-fill::before {
+  content: '\e9d2';
+}
+
+.icon-icon-newfriend-fill::before {
+  content: '\e9d3';
+}
+
+.icon-icon-today-fill::before {
+  content: '\e9d4';
+}
+
+.icon-icon-safety-round-fill::before {
+  content: '\e9d5';
+}
+
+.icon-icon-robot-fill::before {
+  content: '\e9d6';
+}
+
+.icon-icon-onebox-arrow-up::before {
+  content: '\e9d7';
+}
+
+.icon-icon-onebox-arrow-down::before {
+  content: '\e9d8';
+}
+
+.icon-icon-logo::before {
+  content: '\e9d9';
+}
+
+.icon-icon-transpond-fill::before {
+  content: '\e9da';
+}
+
+.icon-icon-come-go-fill::before {
+  content: '\e9db';
+}
+
+.icon-icon-today-en-fill::before {
+  content: '\e9dc';
+}
+
+.icon-icon-tag::before {
+  content: '\e9dd';
+}
+
+.icon-icon-read::before {
+  content: '\e9de';
+}
+
+.icon-icon-watchpost::before {
+  content: '\e9df';
+}
+
+.icon-icon-send-plane::before {
+  content: '\e9e0';
+}
+
+.icon-icon-inbox::before {
+  content: '\e9e1';
+}
+
+.icon-icon-arrowhead::before {
+  content: '\e9e2';
+}
+
+.icon-icon-smile::before {
+  content: '\e9e3';
+}
+
+.icon-icon-subscribe-fill::before {
+  content: '\e9e4';
+}
+
+.icon-icon-flash-on1::before {
+  content: '\e9e5';
+}
+
+.icon-icon-flash-off1::before {
+  content: '\e9e6';
+}
+
+.icon-icon-flash-auto::before {
+  content: '\e9e7';
+}
+
+.icon-icon-circle::before {
+  content: '\e9e8';
+}
+
+.icon-icon-forward-fill::before {
+  content: '\e9e9';
+}
+
+.icon-icon-reply-fill::before {
+  content: '\e9ea';
+}
+
+.icon-icon-replyall-fill::before {
+  content: '\e9eb';
+}
+
+.icon-icon-force-close::before {
+  content: '\e9ec';
+}
+
+.icon-icon-bilibili::before {
+  content: '\e9f1';
+}
+
+.icon-icon-star::before {
+  content: '\e9f2';
+}
+
+.icon-baocundaobendi::before {
+  content: '\e6a0';
+}
+
+.icon-icon-collectfile-fill::before {
+  content: '\e9f3';
+}
+
+.icon-icon-newgroup-fill::before {
+  content: '\e9f4';
+}
+
+.icon-icon-newgroup::before {
+  content: '\e9f5';
+}
+
+.icon-icon-hrm-fill::before {
+  content: '\e602';
+}
+
+.icon-icon-deletet::before {
+  content: '\e9f7';
+}
+
+.icon-icon-tagcolor::before {
+  content: '\e9f8';
+}
+
+.icon-icon-reply::before {
+  content: '\e9f9';
+}
+
+.icon-icon-replyall::before {
+  content: '\e9fa';
+}
+
+.icon-icon-line-data::before {
+  content: '\e9fb';
+}
+
+.icon-icon-watch::before {
+  content: '\e9fc';
+}
+
+.icon-icon-unwatch::before {
+  content: '\e9fd';
+}
+
+.icon-icon-close::before {
+  content: '\e9fe';
+}
+
+.icon-icon-facestore::before {
+  content: '\e9ff';
+}
+
+.icon-icon-explore::before {
+  content: '\ea01';
+}
+
+.icon-icon-add-piazza::before {
+  content: '\e625';
+}
+
+.icon-icon-cellectfile::before {
+  content: '\ea02';
+}
+
+.icon-icon-journal-fill::before {
+  content: '\ea03';
+}
+
+.icon-icon-muteoff-fill::before {
+  content: '\e6a1';
+}
+
+.icon-icon-reject-fill::before {
+  content: '\e6a3';
+}
+
+.icon-icon-mute-fill::before {
+  content: '\e6a4';
+}
+
+.icon-icon-speaker-fill::before {
+  content: '\e6a6';
+}
+
+.icon-icon-speakeroff-fill::before {
+  content: '\e6a7';
+}
+
+.icon-icon-cloud-history-f::before {
+  content: '\ea04';
+}
+
+.icon-icon-example-cn::before {
+  content: '\ea07';
+}
+
+.icon-icon-example-en::before {
+  content: '\ea08';
+}
+
+.icon-icon-example-fill::before {
+  content: '\ea05';
+}
+
+.icon-icon-remind-fill::before {
+  content: '\ea06';
+}
+
+.icon-icon-c-like::before {
+  content: '\ea09';
+}
+
+.icon-icon-c-comment::before {
+  content: '\ea0a';
+}
+
+.icon-icon-certificate-fi::before {
+  content: '\ea0b';
+}
+
+.icon-icon-tag-color::before {
+  content: '\ea0d';
+}
+
+.icon-icon-attachment::before {
+  content: '\ea0e';
+}
+
+.icon-icon-tag-color-selec::before {
+  content: '\ea0c';
+}
+
+.icon-icon-tag-empty-fill::before {
+  content: '\ea0f';
+}
+
+.icon-icon-dispose::before {
+  content: '\ea10';
+}
+
+.icon-icon-expire::before {
+  content: '\e623';
+}
+
+.icon-icon-develop-tool::before {
+  content: '\ea11';
+}
+
+.icon-icon-square1::before {
+  content: '\ea12';
+}
+
+.icon-icon-homepage::before {
+  content: '\ea13';
+}
+
+.icon-icon-square-fill1::before {
+  content: '\ea14';
+}
+
+.icon-icon-homepage-fill::before {
+  content: '\ea15';
+}
+
+.icon-icon-change-emoji::before {
+  content: '\e9bd';
+}
+
+.icon-icon-addcspace::before {
+  content: '\e9f0';
+}
+
+.icon-icon-collect::before {
+  content: '\ea16';
+}
+
+.icon-icon-copy::before {
+  content: '\ea17';
+}
+
+.icon-icon-ding::before {
+  content: '\ea18';
+}
+
+.icon-icon-mute-play::before {
+  content: '\ea19';
+}
+
+.icon-icon-multiset::before {
+  content: '\ea1a';
+}
+
+.icon-icon-remind::before {
+  content: '\ea1b';
+}
+
+.icon-icon-original::before {
+  content: '\ea1c';
+}
+
+.icon-icon-sharelink::before {
+  content: '\ea1d';
+}
+
+.icon-icon-replymessage::before {
+  content: '\ea1e';
+}
+
+.icon-icon-translate::before {
+  content: '\ea1f';
+}
+
+.icon-icon-voice-to-text::before {
+  content: '\ea20';
+}
+
+.icon-icon-packup-text::before {
+  content: '\ea21';
+}
+
+.icon-icon-recover::before {
+  content: '\ea22';
+}
+
+.icon-icon-barrage-on::before {
+  content: '\e9ed';
+}
+
+.icon-icon-printer::before {
+  content: '\e9ee';
+}
+
+.icon-icon-print::before {
+  content: '\e9ef';
+}
+
+.icon-icon-sound-off::before {
+  content: '\e9f6';
+}
+
+.icon-icon-barrage-off::before {
+  content: '\ea23';
+}
+
+.icon-icon-calendar::before {
+  content: '\ea24';
+}
+
+.icon-icon-meeting::before {
+  content: '\ea25';
+}
+
+.icon-icon-trumpet-fill::before {
+  content: '\ea26';
+}
+
+.icon-icon-group-live::before {
+  content: '\ea27';
+}
+
+.icon-icon-number-three::before {
+  content: '\e626';
+}
+
+.icon-icon-forward-left-fill::before {
+  content: '\ea28';
+}
+
+.icon-icon-file-noprompt::before {
+  content: '\ea29';
+}
+
+.icon-icon-dingtalk-addres::before {
+  content: '\e62f';
+}
+
+.icon-icon-addnew-fill::before {
+  content: '\ea2a';
+}
+
+.icon-icon-importroster-fi::before {
+  content: '\ea2b';
+}
+
+.icon-icon-care-fill::before {
+  content: '\ea2c';
+}
+
+.icon-icon-exportroster-fi::before {
+  content: '\ea2d';
+}
+
+.icon-icon-leave-fill::before {
+  content: '\ea2e';
+}
+
+.icon-icon-prform-fill::before {
+  content: '\ea2f';
+}
+
+.icon-icon-trip-fill::before {
+  content: '\ea30';
+}
+
+.icon-icon-locform-fill::before {
+  content: '\ea31';
+}
+
+.icon-icon-coupon-fill::before {
+  content: '\ea32';
+}
+
+.icon-icon-shop-fill::before {
+  content: '\ea33';
+}
+
+.icon-icon-signin::before {
+  content: '\ea34';
+}
+
+.icon-icon-task-checkbox-done-mobile::before {
+  content: '\e61e';
+}
+
+.icon-icon-task-checkbox-undo-mobile::before {
+  content: '\e620';
+}
+
+.icon-icon-task-square-line::before {
+  content: '\e622';
+}
+
+.icon-icon-task-square-fill::before {
+  content: '\e627';
+}
+
+.icon-icon-medal-open::before {
+  content: '\e632';
+}
+
+.icon-icon-medal-hidden::before {
+  content: '\e633';
+}
+
+.icon-icon-medal::before {
+  content: '\e635';
+}
+
+.icon-icon-medal-list::before {
+  content: '\e636';
+}
+
+.icon-icon-workfile::before {
+  content: '\e639';
+}
+
+.icon-icon-member::before {
+  content: '\ea35';
+}
+
+.icon-icon-c-like-fill::before {
+  content: '\ea36';
+}
+
+.icon-icon-online-editing::before {
+  content: '\ea37';
+}
+
+.icon-icon-folder-add::before {
+  content: '\ea38';
+}
+
+.icon-icon-access::before {
+  content: '\ea39';
+}
+
+.icon-icon-pc-upload::before {
+  content: '\ea3b';
+}
+
+.icon-icon-pc-copy::before {
+  content: '\ea3d';
+}
+
+.icon-icon-pc-access::before {
+  content: '\ea3e';
+}
+
+.icon-icon-pc-download::before {
+  content: '\ea3f';
+}
+
+.icon-icon-pc-folder-add::before {
+  content: '\ea40';
+}
+
+.icon-icon-pc-invite::before {
+  content: '\ea41';
+}
+
+.icon-icon-pc-folder-uploa::before {
+  content: '\ea42';
+}
+
+.icon-icon-pc-online-edit::before {
+  content: '\ea43';
+}
+
+.icon-icon-pc-transpond::before {
+  content: '\ea44';
+}
+
+.icon-icon-pc-rename1::before {
+  content: '\ea45';
+}
+
+.icon-icon-pc-sort::before {
+  content: '\ea46';
+}
+
+.icon-icon-pc-sharelink1::before {
+  content: '\ea47';
+}
+
+.icon-icon-trophy-fill::before {
+  content: '\ea3a';
+}
+
+.icon-icon-task-connect::before {
+  content: '\ea3c';
+}
+
+.icon-icon-voip-bluetooth-2::before {
+  content: '\e606';
+}
+
+.icon-icon-voip-bluetooth-1::before {
+  content: '\e607';
+}
+
+.icon-icon-delete-press::before {
+  content: '\ea48';
+}
+
+.icon-icon-new-people-add1::before {
+  content: '\e641';
+}
+
+.icon-icon-line-live-cross::before {
+  content: '\e61a';
+}
+
+.icon-icon-save-fill::before {
+  content: '\e61b';
+}
+
+.icon-icon-content-fill::before {
+  content: '\ea4a';
+}
+
+.icon-icon-tb-menu-fill::before {
+  content: '\ea59';
+}
+
+.icon-icon-tb-redpacket-fi::before {
+  content: '\ea51';
+}
+
+.icon-icon-tb-text-fill::before {
+  content: '\ea52';
+}
+
+.icon-icon-tb-redpacket::before {
+  content: '\ea53';
+}
+
+.icon-icon-tb-ticket::before {
+  content: '\ea55';
+}
+
+.icon-icon-tb-ticket-fill::before {
+  content: '\ea56';
+}
+
+.icon-icon-tb-shop-fill::before {
+  content: '\ea4b';
+}
+
+.icon-icon-im-face::before {
+  content: '\ea00';
+}
+
+.icon-icon-im-keyboard::before {
+  content: '\ea49';
+}
+
+.icon-icon-im-more::before {
+  content: '\ea4c';
+}
+
+.icon-icon-im-voice::before {
+  content: '\ea4d';
+}
+
+.icon-icon-security-face::before {
+  content: '\e647';
+}
+
+.icon-icon-login-face::before {
+  content: '\e648';
+}
+
+.icon-icon-ear-line::before {
+  content: '\ea4e';
+}
+
+.icon-icon-beauty-line::before {
+  content: '\ea4f';
+}
+
+.icon-icon-member-fill::before {
+  content: '\e6b9';
+}
+
+.icon-icon-ph-video-fill::before {
+  content: '\e6ba';
+}
+
+.icon-icon-ph-unvideo-fill::before {
+  content: '\e6bb';
+}
+
+.icon-icon-flipcamera-fill::before {
+  content: '\e6bf';
+}
+
+.icon-icon-historyfile::before {
+  content: '\ea50';
+}
+
+.icon-icon-unlock::before {
+  content: '\ea54';
+}
+
+.icon-icon-Hscreen-fill::before {
+  content: '\e6c2';
+}
+
+.icon-icon-miniapp-full::before {
+  content: '\ea57';
+}
+
+.icon-icon-miniapp::before {
+  content: '\ea58';
+}
+
+.icon-icon-microphone::before {
+  content: '\ea5a';
+}
+
+.icon-icon-univerisity::before {
+  content: '\ea5b';
+}
+
+.icon-icon-holiday-fill::before {
+  content: '\ea5c';
+}
+
+.icon-icon-mail-setting::before {
+  content: '\ea5d';
+}
+
+.icon-icon-quickreply-fill::before {
+  content: '\ea5e';
+}
+
+.icon-icon-skin-fill::before {
+  content: '\e760';
+}
+
+.icon-icon-launch-page-fill::before {
+  content: '\e761';
+}
+
+.icon-icon-activity-fill::before {
+  content: '\e762';
+}
+
+.icon-icon-launch-page-fil::before {
+  content: '\e763';
+}
+
+.icon-icon-riskcheck-fill::before {
+  content: '\ea5f';
+}
+
+.icon-icon-redpacket::before {
+  content: '\ea60';
+}
+
+.icon-icon-backarrow-right::before {
+  content: '\ea61';
+}
+
+.icon-icon-mask-fill::before {
+  content: '\ea62';
+}
+
+.icon-icon-facegroup::before {
+  content: '\ea63';
+}
+
+.icon-icon-expand-face::before {
+  content: '\ea64';
+}
+
+.icon-icon-expand-line::before {
+  content: '\ea65';
+}
+
+.icon-icon-credit-fill::before {
+  content: '\ea66';
+}
+
+.icon-icon-facegroup-fill::before {
+  content: '\ea67';
+}
+
+.icon-icon-new-recruit-fil::before {
+  content: '\ea68';
+}
+
+.icon-icon-sketch-fill::before {
+  content: '\ea69';
+}

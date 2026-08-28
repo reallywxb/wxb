@@ -1,0 +1,36 @@
+{
+  "name": "@vben/stores",
+  "version": "5.5.5",
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "packages/stores"
+  },
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "dependencies": {
+    "@vben-core/preferences": "workspace:*",
+    "@vben-core/shared": "workspace:*",
+    "@vben-core/typings": "workspace:*",
+    "ant-design-vue": "catalog:",
+    "crypto-js": "^4.2.0",
+    "dayjs": "catalog:",
+    "pinia": "catalog:",
+    "pinia-plugin-persistedstate": "catalog:",
+    "secure-ls": "catalog:",
+    "socket.io-client": "^4.8.1",
+    "vue": "catalog:",
+    "vue-router": "catalog:"
+  }
+}

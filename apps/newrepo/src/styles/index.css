@@ -1,0 +1,207 @@
+@font-face {
+  font-family: YouSheBiaoTiHei;
+  src: url('../assets/font/YouSheBiaoTiHei.ttf');
+}
+
+/* 上下布局的表单操作按钮区域样式 */
+.formActionAreaStyle {
+  display: flex;
+  grid-column: -2 / -1;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 10px;
+  margin-left: auto;
+  line-height: 1;
+}
+
+.formActionAreaStyle:has(div[class*='vben-link']) {
+  display: flex;
+  grid-column: -2 / -1;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 0;
+  margin-left: auto;
+  line-height: 32px;
+}
+
+/* vue3-page-split 组件的滚动条去掉 */
+#app .resize-line-pane .pane {
+  overflow-y: hidden;
+}
+
+/* 定义机构仓库选择弹窗样式 */
+.chooseInstitutionAndWarehouse-modal
+  .ant-modal-confirm
+  .ant-modal-confirm-body
+  .ant-modal-confirm-title
+  + .ant-modal-confirm-content {
+  width: 100%;
+  max-width: 100%;
+}
+
+.async-modal
+  .ant-modal-confirm
+  .ant-modal-confirm-body
+  .ant-modal-confirm-title
+  + .ant-modal-confirm-content {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* 去掉搜索区的loading蒙层 */
+.vxe-grid.is--loading::before {
+  display: none;
+}
+
+.ContentCell .vxe-cell--wrapper {
+  display: -webkit-box;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  overflow: hidden;
+
+  /* 隐藏超出部分 */
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+
+  /* 限制文本最多显示三行 */
+  -webkit-box-orient: vertical;
+
+  /* 超出部分显示省略号 */
+}
+
+.UnRead {
+  font-weight: 800;
+}
+
+/* 表单项禁用样式修改 */
+html[data-vxe-ui-theme='light'] .readOnly input[disabled],
+html[data-vxe-ui-theme='light'] input[disabled].readOnly {
+  color: var(--vxe-ui-font-color);
+  cursor: default;
+  background-color: #fff;
+}
+
+html[data-vxe-ui-theme='light'] .readOnlyArea textarea[disabled] {
+  /* color: #000; */
+  background-color: #fff;
+}
+
+/* 隐藏掉头像的dot */
+div[data-radix-popper-content-wrapper]
+  div[data-radix-menu-content]
+  span[class*='bottom-0 right-1 border-2 size-4 bg-green-500 border-background absolute bottom-0 right-0 size-3 rounded-full border-2'] {
+  display: none;
+
+  /* background-color: pink; */
+}
+
+header
+  button[id*='radix-vue-dropdown-menu']
+  span[class*='bg-green-500 border-background absolute bottom-0 right-0 size-3 rounded-full border-2'] {
+  display: none;
+}
+
+.formatBtnIconPosition {
+  .ant-btn > svg {
+    margin-right: -1px;
+    margin-bottom: 4px;
+    margin-left: -5px;
+  }
+}
+
+.vxe-grid
+  form
+  .ant-select-single:not(.ant-select-customize-input)
+  .ant-select-selector {
+  height: 30px;
+}
+
+.vxe-grid form .ant-picker {
+  padding: 3px 7px;
+}
+
+.vxe-grid
+  .vxe-toolbar
+  .ant-select-single:not(.ant-select-customize-input)
+  .ant-select-selector {
+  height: 30px;
+}
+
+.vxe-grid .vxe-toolbar .ant-picker {
+  padding: 3px 7px;
+}
+
+div[role='dialog']
+  form
+  .ant-select-single:not(.ant-select-customize-input)
+  .ant-select-selector {
+  height: 30px;
+}
+
+div[role='dialog'] form .ant-picker {
+  padding: 3px 7px;
+}
+
+.vxe-table--column .vxe-cell .ant-input {
+  padding: 2px 7px;
+}
+
+.vxe-table--column .vxe-cell .ant-btn span {
+  font-size: 12px;
+}
+
+/* 让表单的校验提示文本不阻碍表单操作 */
+p[id$='-form-item-message'][id^='v-'] {
+  pointer-events: none;
+}
+
+/* 去除导出弹窗内的冗余模块 */
+.vxe-table-export--panel
+  .vxe-table-export--panel-column
+  > ul
+  > li[title='序号'] {
+  display: none;
+}
+
+.vxe-table-export--panel
+  .vxe-table-export--panel-column
+  > ul
+  > li[title='单选'] {
+  display: none;
+}
+
+.vxe-table-export--panel
+  .vxe-table-export--panel-column
+  > ul
+  > li[title='多选'] {
+  display: none;
+}
+
+.vxe-table-export--panel
+  .vxe-table-export--panel-column
+  > ul
+  > li[title='操作'] {
+  display: none;
+}
+
+.vxe-table-export--panel
+  .vxe-table-export--panel-table
+  tr:has(td > .vxe-table-export--panel-option-row) {
+  display: none;
+}
+
+/* 可编辑表的物资下拉弹窗 */
+.productSelection {
+  z-index: 1999;
+}
+
+/* 用于操作指引组件的描述文本换行 */
+.driver-popover-description {
+  white-space: pre-line;
+}
+
+.driver-popover.guide-workspace-popover {
+  min-width: 100px;
+  max-width: 200px;
+}

@@ -1,0 +1,25 @@
+export function getValidateRule(item: any) {
+  const checkConfig = (rule: any, value: any, callback: any) => {
+    if (item.required && value?.length === 0) {
+      return callback(new Error(`请选择${item.name}`));
+    }
+    if (value?.length === 0) {
+      return callback();
+    }
+    return callback();
+  };
+  const ruleArray: any[] = [
+    {
+      validator: checkConfig,
+      trigger: 'change',
+    },
+  ];
+  if (item.required) {
+    ruleArray.push({
+      required: true,
+      message: `请选择${item.name}`,
+      trigger: 'change',
+    });
+  }
+  return ruleArray;
+}

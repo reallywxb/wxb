@@ -1,0 +1,490 @@
+<script setup lang="ts">
+/* eslint-disable vue/no-mutating-props */
+import {
+  computed,
+  getCurrentInstance,
+  inject,
+  isReactive,
+  onMounted,
+  ref,
+  toRaw,
+  watch,
+} from 'vue';
+
+import { Button, Input } from 'ant-design-vue';
+import { cloneDeep } from 'lodash-es';
+
+import { useStore } from '#/store/drawer';
+import { useFlowStore } from '#/store/flow';
+import { bgColors } from '#/utils/flow/const.js';
+import $func from '#/utils/flow/index.js';
+import { resetNodeId } from '#/utils/flow/nodeutil.js';
+import * as util from '#/utils/flow/objutil.js';
+
+import addNode from '../addNode.vue';
+import nodeWrap from '../nodeWrap.vue';
+
+const props = defineProps({
+  nodeConfig: {
+    type: Object,
+    default: () => {},
+  },
+});
+const emits = defineEmits(['updateData']);
+const isInputList = ref([]);
+const readOnly = inject('readOnlyAtFlow'); // 导入
+
+const updateParentData = (d) => {
+  emits('updateData', d);
+};
+const resetConditionNodesErr = () => {
+  for (let i = 0; i < props.nodeConfig.conditionNodes.length; i++) {
+    const conditionNode = props.nodeConfig.conditionNodes[i];
+
+    conditionNode.error = false;
+
+    if (i === props.nodeConfig.conditionNodes.length - 1) {
+      conditionNode.conditionList = [
+        {
+          mode: true,
+          conditionList: [
+            {
+              key: '',
+              expression: '',
+            },
+          ],
+        },
+      ];
+    } else {
+      conditionNode.error = !$func.checkCondition(props.nodeConfig, i).ok;
+      conditionNode.errorMsg = $func.checkCondition(props.nodeConfig, i).msg;
+    }
+    if (!readOnly) {
+      conditionNode.placeHolder = $func.conditionStr(props.nodeConfig, i);
+    }
+  }
+};
+
+const arrTransfer = (index, type = 1) => {
+  // 向左-1,向右1
+  props.nodeConfig.conditionNodes[index] =
+    props.nodeConfig.conditionNodes.splice(
+      index + type,
+      1,
+      props.nodeConfig.conditionNodes[index],
+    )[0];
+  props.nodeConfig.conditionNodes.forEach((item, index) => {
+    item.priorityLevel = index + 1;
+  });
+  resetConditionNodesErr();
+  updateParentData(props.nodeConfig);
+};
+
+const blurEvent = (index) => {
+  isInputList.value[index] = false;
+  props.nodeConfig.conditionNodes[index].nodeName =
+    props.nodeConfig.conditionNodes[index].nodeName || '条件';
+};
+const clickEvent = (index) => {
+  isInputList.value[index] = true;
+};
+const reData = (data, addData) => {
+  if (data.childNode) {
+    reData(data.childNode, addData);
+  } else {
+    data.childNode = addData;
+  }
+};
+
+// 复制
+const copyTerm = (index) => {
+  const conditionNode = props.nodeConfig.conditionNodes[index];
+  const deepCopy = util.deepCopy(conditionNode);
+  resetNodeId(deepCopy, deepCopy.parentId);
+  props.nodeConfig.conditionNodes.splice(index, 0, deepCopy);
+  props.nodeConfig.conditionNodes.forEach((item, index) => {
+    item.priorityLevel = index + 1;
+    // item.nodeName = `条件${index + 1}`;
+  });
+  resetConditionNodesErr();
+  updateParentData(props.nodeConfig);
+  if (props.nodeConfig.conditionNodes.length === 1) {
+    if (props.nodeConfig.childNode) {
+      if (props.nodeConfig.conditionNodes[0].childNode) {
+        reData(
+          props.nodeConfig.conditionNodes[0].childNode,
+          props.nodeConfig.childNode,
+        );
+      } else {
+        props.nodeConfig.conditionNodes[0].childNode =
+          props.nodeConfig.childNode;
+      }
+    }
+    updateParentData(props.nodeConfig.conditionNodes[0].childNode);
+  }
+};
+
+const delTerm = (index) => {
+  props.nodeConfig.conditionNodes.splice(index, 1);
+  props.nodeConfig.conditionNodes.forEach((item, index) => {
+    item.priorityLevel = index + 1;
+    item.nodeName = `条件${index + 1}`;
+  });
+  resetConditionNodesErr();
+  updateParentData(props.nodeConfig);
+  if (props.nodeConfig.conditionNodes.length === 1) {
+    if (props.nodeConfig.childNode) {
+      if (props.nodeConfig.conditionNodes[0].childNode) {
+        reData(
+          props.nodeConfig.conditionNodes[0].childNode,
+          props.nodeConfig.childNode,
+        );
+      } else {
+        props.nodeConfig.conditionNodes[0].childNode =
+          props.nodeConfig.childNode;
+      }
+    }
+    updateParentData(props.nodeConfig.conditionNodes[0].childNode);
+  }
+};
+
+const store = useStore();
+const {
+  // TODO 2
+  setCondition,
+
+  setConditionsConfig,
+} = store;
+
+const conditionsConfig1 = computed(() => store.conditionsConfig1);
+
+watch(conditionsConfig1, (condition) => {
+  if (condition.flag && condition.id === _uid) {
+    updateParentData(condition.value);
+  }
+});
+
+let _uid = getCurrentInstance().uid;
+
+const openConfigDrawer = (priorityLevel, index) => {
+  if (readOnly) {
+    return;
+  }
+
+  if (index >= props.nodeConfig.conditionNodes.length - 1) {
+    return;
+  }
+
+  setConditionsConfig({
+    value: cloneDeep(
+      isReactive(props.nodeConfig) ? toRaw(props.nodeConfig) : props.nodeConfig,
+    ),
+    priorityLevel,
+    flag: false,
+    id: _uid,
+  });
+
+  setCondition(true);
+};
+
+const addTerm = () => {
+  if (readOnly) {
+    return;
+  }
+
+  const len = props.nodeConfig.conditionNodes.length + 1;
+  props.nodeConfig.conditionNodes.push({
+    nodeName: `条件${len}`,
+    type: 3,
+    parentId: props.nodeConfig.id,
+    mode: true,
+    groupRelationMode: true,
+    groupRelation: [],
+    id: util.getRandomId(),
+    priorityLevel: len,
+    conditionList: [
+      {
+        mode: true,
+        conditionList: [
+          {
+            key: '',
+
+            expression: '',
+          },
+        ],
+      },
+    ],
+    nodeUserList: [],
+    childNode: null,
+  });
+  resetConditionNodesErr();
+  updateParentData(props.nodeConfig);
+};
+onMounted(() => {
+  resetConditionNodesErr();
+});
+
+const flowStore = useFlowStore();
+
+const step2FormList = computed(() => {
+  const step2 = flowStore.step2;
+  return step2;
+});
+
+watch(
+  () => step2FormList.value,
+  (val) => {
+    const nodeConfig = props.nodeConfig;
+
+    // 条件分支
+    let index = 0;
+    const len = nodeConfig.conditionNodes.length;
+    for (const node of nodeConfig.conditionNodes) {
+      if (index >= len - 1) {
+        break;
+      }
+      for (const item1 of node.conditionList) {
+        for (const item2 of item1.conditionList) {
+          if (item2.key === 'rootUser') {
+            continue;
+          }
+          let exist = true;
+          // 明细汇总的处理
+          if (item2.key.indexOf('||') > 0) {
+            const split = item2.key.split('||');
+            const layoutFormId = split[0];
+            const innerFormId = split[1];
+            const length = val.filter((res) => res.id === layoutFormId).length;
+            if (length > 0) {
+              const length1 = val
+                .find((res) => res.id === layoutFormId)
+                .props.oriForm.filter((res) => res.id === innerFormId).length;
+              exist = length1 > 0;
+            } else {
+              exist = false;
+            }
+          } else {
+            const length = val.filter((res) => res.id === item2.key).length;
+            exist = length > 0;
+          }
+          if (!exist) {
+            item2.key = '';
+            item2.expression = '';
+            item2.keyType = '';
+            item2.value = '';
+            node.error = true;
+            node.errorMsg = '请设置条件';
+          }
+        }
+      }
+      index++;
+    }
+  },
+  { deep: true },
+);
+
+// 节点状态
+const nodeStatusMap = inject('nodeStatusMapAtFlow'); // 导入
+// 边框颜色
+const outBorder = computed(() => {
+  const conditionNodes = props.nodeConfig.conditionNodes;
+
+  const arr = [];
+
+  for (const c of conditionNodes) {
+    if (readOnly && nodeStatusMap && nodeStatusMap.d) {
+      const nodeStatusMapElement = nodeStatusMap.d[c.id];
+      if (!nodeStatusMapElement) {
+        arr.push('');
+        continue;
+      }
+      if (nodeStatusMapElement === 1) {
+        arr.push('active being');
+        continue;
+      }
+      if (nodeStatusMapElement === 2) {
+        arr.push('active finished');
+        continue;
+      }
+      if (nodeStatusMapElement === 3) {
+        arr.push('active canceled');
+        continue;
+      }
+    } else if (c.error) {
+      arr.push('active error ');
+      continue;
+    }
+    arr.push('');
+    continue;
+  }
+
+  return arr;
+});
+</script>
+
+<template>
+  <div class="branch-wrap">
+    <div class="branch-box-wrap">
+      <div class="branch-box">
+        <Button
+          class="add-branch"
+          :style="`color: rgb(${bgColors[nodeConfig.type]});`"
+          @click="addTerm"
+        >
+          添加条件
+        </Button>
+        <div
+          class="col-box"
+          v-for="(item, index) in nodeConfig.conditionNodes"
+          :key="index"
+        >
+          <div class="condition-node">
+            <div class="condition-node-box">
+              <div class="auto-judge" :class="outBorder[index]">
+                <div
+                  class="sort-left"
+                  v-if="index !== 0 && !readOnly"
+                  @click="arrTransfer(index, -1)"
+                >
+                  &lt;
+                </div>
+                <div class="title-wrapper" style="border: 0 solid red">
+                  <Input
+                    style="width: 50%"
+                    v-if="isInputList[index] && !readOnly"
+                    type="text"
+                    class="ant-input editable-title-input"
+                    @blur="blurEvent(index)"
+                    @focus="$event.currentTarget.select()"
+                    v-focus
+                    v-model:value="item.nodeName"
+                  />
+                  <span
+                    v-else
+                    class="editable-title"
+                    :style="`color: rgb(${bgColors[nodeConfig.type]});`"
+                    @click="clickEvent(index)"
+                  >
+                    {{ item.nodeName }}
+                  </span>
+                  <span
+                    class="priority-title"
+                    @click="openConfigDrawer(item.priorityLevel, index)"
+                  >
+                    优先级{{ item.priorityLevel }}
+                  </span>
+                  <i
+                    v-if="!readOnly"
+                    class="anticon anticon-close close"
+                    @click="delTerm(index)"
+                  ></i>
+                  <i
+                    v-if="
+                      !readOnly &&
+                      index !== nodeConfig.conditionNodes.length - 1
+                    "
+                    class="anticon anticon-docs close"
+                    style="right: 10px; display: none"
+                    @click="copyTerm(index)"
+                  ></i>
+                </div>
+                <div
+                  class="sort-right"
+                  v-if="
+                    !readOnly && index !== nodeConfig.conditionNodes.length - 1
+                  "
+                  @click="arrTransfer(index)"
+                >
+                  &gt;
+                </div>
+
+                <div
+                  class="content"
+                  @click="openConfigDrawer(item.priorityLevel, index)"
+                >
+                  <div v-if="item.error" class="placeholderError">!</div>
+                  {{
+                    readOnly
+                      ? nodeConfig.conditionNodes[index].placeHolder
+                      : item.error
+                        ? item.errorMsg
+                        : $func.conditionStr(nodeConfig, index)
+                  }}
+                </div>
+                <!--                <div class="error_tip" v-if="item.error">-->
+                <!--                  &lt;!&ndash;									<i class="anticon anticon-exclamation-circle"></i>&ndash;&gt;-->
+
+                <!--                  <Popover-->
+                <!--                    placement="topLeft"-->
+                <!--                    :width="200"-->
+                <!--                    trigger="hover"-->
+                <!--                    :content="item.errorMsg"-->
+                <!--                  >-->
+                <!--                      <i class="anticon anticon-exclamation-circle"></i>-->
+                <!--                  </Popover>-->
+                <!--                </div>-->
+              </div>
+              <addNode
+                v-model:child-node-p="item.childNode"
+                :current-node="item"
+              />
+            </div>
+          </div>
+          <nodeWrap
+            v-if="item.childNode"
+            v-model:node-config="item.childNode"
+          />
+          <template v-if="index === 0">
+            <div class="top-left-cover-line"></div>
+            <div class="bottom-left-cover-line"></div>
+          </template>
+          <template v-if="index === nodeConfig.conditionNodes.length - 1">
+            <div class="top-right-cover-line"></div>
+            <div class="bottom-right-cover-line"></div>
+          </template>
+        </div>
+      </div>
+      <addNode
+        v-model:child-node-p="nodeConfig.childNode"
+        :current-node="nodeConfig"
+      />
+    </div>
+  </div>
+</template>
+
+<style scoped lang="less">
+@import '../../../../../../styles/flow/workflow.css';
+
+.error_tip {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  transform: translate(150%, 0px);
+  font-size: 24px;
+}
+
+.promoter_person .el-dialog__body {
+  padding: 10px 20px 14px 20px;
+}
+
+.selected_list {
+  margin-bottom: 20px;
+  line-height: 30px;
+}
+
+.selected_list span {
+  margin-right: 10px;
+  padding: 3px 6px 3px 9px;
+  line-height: 12px;
+  white-space: nowrap;
+  border-radius: 2px;
+  border: 1px solid rgba(220, 220, 220, 1);
+}
+
+.selected_list img {
+  margin-left: 5px;
+  width: 7px;
+  height: 7px;
+  cursor: pointer;
+}
+</style>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta content="text/html;charset=UTF-8"/>
+  <title></title>
+  <meta name="keywords" content="" />
+    <meta name="description" content="" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta http-equiv ="Pragma" content = "no-cache"/>
+  <meta http-equiv="Cache-Control" content="no cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="shortcut icon" href="./images/001.ico" />
+  <link href="./plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" /> 
+  <link id="css" rel="stylesheet" type="text/css" href="./plugins/layui/css/layui.css?v=<%version%>" media="all"/>
+  <link href="./plugins/contextMenu/jquery.contextMenu.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./css/fs.css?v=<%version%>" media="all"/>
+  <style>
+    dl  .layui-this:after{
+      background-color: white!important;
+    }
+    .logo{
+		position: absolute;
+    	left: 0;
+    	top: 50%;
+    	width: 200px;
+    	transform: translateY(-50%);
+    	/* height: 100%; 
+    	 line-height: 60px; */
+    	text-align: center;
+    	color: #f5f5f5;
+    	font-size: 18px;    
+	    font-weight: 600;
+	    letter-spacing: 1px;
+	    vertical-align: middle;
+	    line-height: 25px;
+    }
+
+    /* AI 智能助手样式 */
+    #aiChatToggleBtn {
+        position: fixed;
+        right: 25px;
+        bottom: 25px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #1e9fff, #009688);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        z-index: 99999;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    #aiChatToggleBtn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    }
+    #aiChatWindow {
+        position: fixed;
+        right: 25px;
+        bottom: 95px;
+        width: 400px;
+        height: 560px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        z-index: 99999;
+        overflow: hidden;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+    #aiChatWindow.ai-chat-hidden {
+        display: none;
+    }
+    #aiChatHeader {
+        background: linear-gradient(135deg, #1e9fff, #009688);
+        color: #fff;
+        padding: 14px 18px;
+        font-size: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+    }
+    #aiChatHeader #aiChatClearBtn {
+        cursor: pointer;
+        font-size: 18px;
+        opacity: 0.7;
+        margin-right: 12px;
+        transition: opacity 0.2s;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    #aiChatHeader #aiChatClearBtn:hover {
+        opacity: 1;
+    }
+    #aiChatHeader #aiChatClose {
+        cursor: pointer;
+        font-size: 22px;
+        line-height: 1;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    #aiChatHeader #aiChatClose:hover {
+        opacity: 1;
+    }
+    #aiChatBody {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        background: #f8fafb;
+    }
+    #aiChatBody .ai-msg {
+        margin-bottom: 14px;
+        display: flex;
+    }
+    #aiChatBody .ai-msg-bot {
+        justify-content: flex-start;
+    }
+    #aiChatBody .ai-msg-user {
+        justify-content: flex-end;
+    }
+    #aiChatBody .ai-msg-content {
+        max-width: 80%;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 13px;
+        line-height: 1.6;
+        word-break: break-word;
+    }
+    #aiChatBody .ai-msg-bot .ai-msg-content {
+        background: #fff;
+        color: #333;
+        border: 1px solid #e8e8e8;
+        border-top-left-radius: 2px;
+    }
+    #aiChatBody .ai-msg-user .ai-msg-content {
+        background: #1e9fff;
+        color: #fff;
+        border-top-right-radius: 2px;
+    }
+
+    /* 富文本内容样式（知识库图文回复） */
+    #aiChatBody .ai-rich-content {
+        max-width: 100%;
+        padding: 0;
+    }
+    #aiChatBody .ai-rich-content p {
+        margin: 8px 0;
+        line-height: 1.6;
+    }
+    #aiChatBody .ai-rich-content h2,
+    #aiChatBody .ai-rich-content h3,
+    #aiChatBody .ai-rich-content h4,
+    #aiChatBody .ai-rich-content h5 {
+        margin: 12px 0 8px 0;
+        font-weight: bold;
+    }
+    #aiChatBody .ai-rich-content h2 { font-size: 16px; }
+    #aiChatBody .ai-rich-content h3 { font-size: 15px; }
+    #aiChatBody .ai-rich-content h4 { font-size: 14px; }
+    #aiChatBody .ai-rich-content h5 { font-size: 13px; }
+
+    /* 图片容器样式 */
+    #aiChatBody .ai-image-wrapper {
+        margin: 12px 0;
+        text-align: center;
+    }
+    #aiChatBody .ai-knowledge-image {
+        max-width: 100%;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform 0.2s;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    #aiChatBody .ai-knowledge-image:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    #aiChatBody .ai-image-caption {
+        margin-top: 6px;
+        font-size: 12px;
+        color: #666;
+        font-style: italic;
+    }
+
+    /* 图片预览遮罩 */
+    .ai-image-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.85);
+        z-index: 999999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.2s;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .ai-image-overlay-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+    }
+    .ai-image-overlay-content img {
+        max-width: 100%;
+        max-height: 90vh;
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .ai-image-overlay-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        color: #fff;
+        font-size: 32px;
+        cursor: pointer;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+        text-align: center;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        transition: background 0.2s;
+    }
+    .ai-image-overlay-close:hover {
+        background: rgba(255,255,255,0.3);
+        border-top-right-radius: 2px;
+    }
+    #aiChatBody .ai-typing {
+        display: inline-block;
+        color: #999;
+        font-size: 13px;
+        padding: 10px 14px;
+        background: #fff;
+        border: 1px solid #e8e8e8;
+        border-radius: 10px;
+        border-top-left-radius: 2px;
+    }
+    #aiChatBody .ai-typing .typing-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin: 0 2px;
+        background: #1e9fff;
+        border-radius: 50%;
+        animation: typingBounce 1.4s infinite ease-in-out both;
+    }
+    #aiChatBody .ai-typing .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+    #aiChatBody .ai-typing .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+    #aiChatBody .ai-typing .typing-dot:nth-child(3) { animation-delay: 0s; }
+    @keyframes typingBounce {
+        0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+        40% { transform: scale(1); opacity: 1; }
+    }
+    #aiChatBody .ai-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+        font-size: 12px;
+    }
+    #aiChatBody .ai-table th {
+        background: #1e9fff;
+        color: #fff;
+        padding: 6px 8px;
+        text-align: left;
+        font-weight: normal;
+    }
+    #aiChatBody .ai-table td {
+        padding: 5px 8px;
+        border-bottom: 1px solid #eee;
+    }
+    #aiChatBody .ai-table tr:nth-child(even) td {
+        background: #f5f9fc;
+    }
+    #aiChatBody .ai-table tr:hover td {
+        background: #eaf4fb;
+    }
+    #aiChatBody .ai-table-wrapper {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    #aiChatBody .ai-table-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 6px;
+        margin-bottom: 4px;
+    }
+    #aiChatBody .ai-table-info {
+        font-size: 12px;
+        color: #999;
+    }
+    #aiChatBody .ai-export-btn {
+        background: #1e9fff;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 3px 12px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: background 0.2s;
+        white-space: nowrap;
+    }
+    #aiChatBody .ai-export-btn:hover {
+        background: #009688;
+    }
+    #aiChatBody .ai-export-btn:disabled {
+        background: #999;
+        cursor: not-allowed;
+    }
+    #aiChatFooter {
+        display: flex;
+        padding: 12px;
+        background: #fff;
+        border-top: 1px solid #eee;
+        flex-shrink: 0;
+    }
+    #aiChatFooter input {
+        flex: 1;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 13px;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    #aiChatFooter input:focus {
+        border-color: #1e9fff;
+    }
+    #aiChatFooter button {
+        margin-left: 10px;
+        background: linear-gradient(135deg, #1e9fff, #009688);
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+    #aiChatFooter button:hover {
+        opacity: 0.85;
+    }
+    #aiChatFooter button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+  </style>
+</head>
+<body style="overflow: hidden;" >
+  <div class="layui-layout layui-layout-admin" style="display: none;">
+    <!-- 顶部 -->
+    <div class="layui-header">
+      <a  class="layui-hide-xs">
+        <div id="logo" class="logo" >
+<!--           <img id="logo" style="width:97%; margin-top: -6px;" src="" alt=""> -->
+        </div>
+      </a>
+      <!-- <i class="layui-icon changeTopMenu" data-value="" title="切换样式">&#xe653;</i>    -->
+      <!-- 顶部菜单 -->
+      <div id="fsTopMenuDiv">
+        <icon class="layui-icon leftIcon cur">&#xe603;</icon>
+        <div class="scrollDiv">
+            <ul class="layui-nav layui-layout-left fsTopMenu" id="fsTopMenu" lay-filter="fsTopMenu">
+            <span class="layui-nav-bar"></span>
+          </ul>  
+        </div>
+        <icon class="layui-icon rightIcon cur">&#xe602;</icon>
+      </div>
+      <ul class="layui-nav layui-layout-left2 fsTopMenu2" id="fsTopMenu2" lay-filter="fsTopMenu">
+      </ul>
+      <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item layui-hide-xs mr10 ">
+          <a href="javascript:;" id="changeCss">
+            <!-- <img src="images/header.png" class="layui-nav-img"> -->
+            <!-- <span class="fa fa-exchange "></span> -->
+            <span class="changeCss" >换肤<i class="layui-icon">&#xe61b;</i></span>
+          </a>
+        </li>
+        <li class="layui-nav-item layui-hide-xs mr5">
+          <a href="javascript:;" id="changeScreen">
+            <span class="changeCss full-screen" ><i class="layui-icon">&#xe622;</i>全屏</span>
+            <span class="changeCss screen-restore" ><i class="layui-icon">&#xe758;</i>退出全屏</span>
+          </a>
+        </li>
+        <li class="layui-nav-item layui-hide-xs mr10 message-container">
+          <a href="javascript:;">
+            <!-- <img src="images/header.png" class="layui-nav-img"> -->
+            <!-- <span class="fa fa-exchange "></span> -->
+            <span class="message-title">
+              待办<span class="layui-badge message-number" id='messagecount' ></span>
+            </span>
+            
+          </a>
+        </li>
+        <li class="layui-nav-item layui-hide-xs mr10 org">
+          <a href="javascript:;" class="curdefault">
+            <!-- <img src="images/header.png" class="layui-nav-img"> -->
+            <!-- <span class="fa fa-exchange "></span> -->
+            <span class="orgname">
+            </span>
+            <span class="fa fa-caret-down ft14 dn">
+            </span>
+          </a>
+          <dl class="layui-nav-child dn">
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-hide-xs" style="min-width:88px;">
+          <a href="javascript:;">
+            <!-- <img src="images/header.png" class="layui-nav-img"> -->
+            <span class="fa fa-user-circle-o ">
+            </span>
+            <span id="userRealName">
+            </span>
+              <span class="fa fa-caret-down ft14">
+              </span>
+          </a>
+          <dl class="layui-nav-child">
+            <dd>
+              <a  href="javascript:;" id="editpassword">
+                <span class="fa fa-address-book-o"></span>
+                修改密码
+              </a>
+            </dd>
+            <dd>
+              <a href="javascript:" id="logout">
+                <span class="fa fa-sign-out">
+                </span>
+                安全退出
+              </a>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+    <div class="site-mobile-shade"></div><!-- 遮罩层 -->
+    <!-- 左边菜单 -->
+    <div class="layui-side layui-bg-black" ondrop="dropDelete(event)" ondragover="allowDrop(event)">
+      <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree fsLeftMenu" lay-filter="fsLeftMenu"
+        id="fsLeftMenu">
+        </ul>
+      </div>
+      <div class="layui-side-footer">
+        <!-- 底部固定区域 -->
+      </div>
+    </div>
+    <div class="fsSwitchMenu cur closeic">
+      <img src="images/close.png" alt="">
+    </div>
+    <!-- 右边内容区域 -->
+    <div class="layui-body layui-form">
+      <div class="layui-tab layui-tab-card fsTab"  lay-filter="fsTab" lay-allowClose="true">
+        <!-- 菜单导航 -->
+        <ul class="layui-tab-title" id="fsTabMenu">
+          <li class="layui-this" lay-id="111">
+            <i class="layui-icon mr8">&#xe68e;</i>
+            <cite>首页</cite>
+            <p class="layui-tab-close" style="display: none;">
+            </p>
+          </li>
+        </ul>
+        <!-- 内容 -->
+        <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show" id="child-index" lay-id="1">
+            <iframe id="appIFrame" src="" >
+            </iframe>
+            <div class="layui-footer" >
+              <!-- 底部固定区域 -->
+                   <span id="copyright">
+                  </span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 个人资料div -->
+    <div class="layui-personal">
+      <form action="">
+        <div class="layui-inline">
+          <label class="layui-form-label">原密码:</label>
+          <div class="layui-input-inline">
+            <input type="password" id="oldPassword" name="oldPassword" class="layui-input" />
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">新密码:</label>
+          <div class="layui-input-inline">
+            <input type="password"  id="password" name="password" class="layui-input" />
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">确认密码:</label>
+          <div class="layui-input-inline">
+            <input type="password"  id="passwordConfirm" name="passwordConfirm" class="layui-input" />
+          </div>
+        </div>
+        <div class="layui-personal-btn">
+          <a class="layui-btn layui-btn-sm layui-btn-radius" id="savePersonal">保存</a>
+          <a class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius" style='visibility:hidden'  id="cancelPersonal">取消</a>
+        </div>
+      </form>
+    </div>
+    <!-- 移动导航 -->
+    <div class="site-tree-mobile layui-hide">
+      <i class="layui-icon">
+        &#xe602;
+      </i>
+    </div>
+    <div class="newMessage">
+      <i class="layui-icon newMessage-icon">&#xe645;</i>
+      <i class="layui-icon newMessage-close">&#x1006;</i>
+      <span class="newMessage-text">你有<span class="newMessage-number">1</span>条新的消息请查收</span>
+    </div>
+  </div>
+
+  <!-- ========== AI 智能助手 ========== -->
+  <div id="aiChatToggleBtn" onclick="toggleAIChat()" title="智能助手">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 2c1.93 0 3.68.78 4.95 2.05L12 10.1 7.05 6.05A7.93 7.93 0 0 1 12 4zm-8 8c0-1.93.78-3.68 2.05-4.95L10.1 12l-4.05 4.95A7.93 7.93 0 0 1 4 12zm8 8a7.93 7.93 0 0 1-4.95-2.05L12 13.9l4.95 4.05A7.93 7.93 0 0 1 12 20zm8-8c0 1.93-.78 3.68-2.05 4.95L13.9 12l4.05-4.95A7.93 7.93 0 0 1 20 12z"/><circle cx="9" cy="10" r="1.2"/><circle cx="15" cy="10" r="1.2"/><path d="M12 17c-2 0-3.5-1.2-4-2h8c-.5.8-2 2-4 2z"/></svg>
+  </div>
+
+  <div id="aiChatWindow" class="ai-chat-hidden">
+    <div id="aiChatHeader">
+      <span><b>🤖 智能助手</b></span>
+      <span>
+        <span id="aiChatClearBtn" onclick="clearAIChat()" title="清空对话">&orarr;</span>
+        <span id="aiChatClose" onclick="toggleAIChat()">&times;</span>
+      </span>
+    </div>
+    <div id="aiChatBody">
+      <div class="ai-msg ai-msg-bot">
+        <div class="ai-msg-content">您好！我是智能数据助手，可以帮您：<br>🔹 <b>查询数据</b>（如"最近有哪些订单"、"查库存"）<br>🔹 <b>销量预测</b>（如"西药库氯化钠未来5天的销量"）<br>🔹 <b>日志分析</b>（如"最近一次错误原因分析一下"）<br>🔹 <b>日常问答</b>（如"你是谁"）</div>
+      </div>
+    </div>
+    <div id="aiChatFooter">
+      <input type="text" id="aiChatInput" placeholder="输入问题，回车发送..." onkeydown="if(event.keyCode==13)sendAIMsg();">
+      <button id="aiChatSendBtn" onclick="sendAIMsg()">发送</button>
+    </div>
+  </div>
+
+  <div class="changetitle">
+    <p class="changeloading"><i class="layui-icon  layui-anim layui-anim-rotate layui-anim-loop">&#xe63d;</i></p>
+  </div>
+  <audio src='./audio/error.wav' style='display:none' id='audio-error'></audio>
+   <iframe id="downloadIFrame" src="" style="widht:0px;height:0px;display:none">
+   </iframe>
+</body>
+<script>
+var currentPath = window.location.pathname;
+if (currentPath.indexOf('/')>=0){
+	  currentPath = currentPath.substr(0,currentPath.lastIndexOf('/'))
+	  if (currentPath.indexOf('/')>=0){
+		  //去掉/system
+		  currentPath = currentPath.substr(0,currentPath.lastIndexOf('/'))
+	  }
+}
+else {
+	  currentPath = "/"
+}
+//设置全局web路径，供layui加载脚本使用
+top.WebPath=currentPath;
+</script>
+  <script type="text/javascript" src="./plugins/jquery/jquery.min.js"></script>
+   <script type="text/javascript" src="./plugins/jquery/jquery.cookie.js"></script>
+  <script type="text/javascript" src="./plugins/layui/layui.js"></script>
+ <script type="text/javascript" src="./plugins/frame/js/common.js?v=<%version%>"></script>
+ <script src="./plugins/contextMenu/jquery.contextMenu.min.js"></script>
+ <script type="text/javascript" src="./index.js?v=<%version%>"></script>
+ <!-- AI智能助手 -->
+ <script type="text/javascript" src="./ai-chat.js?v=<%version%>"></script>
+</html>
